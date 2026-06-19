@@ -52,7 +52,11 @@ const STICKER = `
   </a>`;
 
 export default async function decorate(block) {
-  const media = [...block.querySelectorAll('picture, img')];
+  // One media per row — query per row so a <picture> isn't double-counted with
+  // its own inner <img> (the live pipeline wraps content <img> in <picture>).
+  const media = [...block.querySelectorAll(':scope > div')]
+    .map((row) => row.querySelector('picture, img'))
+    .filter(Boolean);
   if (!media.length) return;
   const frag = document.createDocumentFragment();
 
