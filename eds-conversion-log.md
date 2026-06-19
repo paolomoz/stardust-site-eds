@@ -108,3 +108,40 @@ assets). Gotcha fixed: collect **one media per row** (`row.querySelector('pictur
 img')`) — a block-wide `querySelectorAll('picture, img')` double-counts each
 `<picture>` with its own inner `<img>` once the pipeline wraps them, yielding 2×
 the figures (invisible in the bare-`<img>` harness, only appears live).
+
+---
+
+# EDS conversion log — docs page (`/docs/`)
+
+Source: `stardust-site/docs/index.html`. Deployed to `content/docs/index.html`
+→ served at **`/docs/`** (the `index` document is served at the folder path;
+`/docs/index` itself 404s — index convention, and the nav already links `/docs/`).
+
+A different page type — a split **sidebar + prose article** docs layout on a
+cream ground. Per the strict reuse rule (reuse only if the *design* is identical):
+- **`header` + `footer`** reused (global chrome; same nav + colophon — the
+  footer's slightly different prototype padding is ignored since chrome is shared).
+- Everything else is one new **`docs`** block (the docs layout exists nowhere else).
+
+### `docs` block
+Renders the full split layout: full-bleed cream `.docs-bleed` → centered 1320
+`.layout` grid (`::before` ink sidebar rail + `::after` amber side-borders) →
+sticky `aside.sidebar` (fixed docs chrome: star, nav links, meta) + `.article`.
+
+The **article is authored content** (one section per cell, each starting with a
+valid wrapper so `wrapTextNodes` leaves the `<pre>`/`<blockquote>` intact). DA
+strips `<span>`/classes, so the decorative bits are reconstructed in `decorate()`:
+- eyebrow — first `<p>` matching `NN ·`
+- h1 accent — authored `<em>` (= the amber-italic `.ital`)
+- h2 step label — authored `Step|Heading` split on the `|` delimiter
+- code prompts/comments — leading `$`/`›`, `#` lines, ` — ` trailing → `.prompt`/`.comment`
+- callout — authored `<blockquote>`
+- shortcut band — the h2 whose step is `Shortcut` opens an inverted full-bleed
+  band (negative-margin breakout left across the sidebar) that runs until the
+  next h2
+Sidebar zap easter egg ported (per-char jolt as the band's rule crosses sidebar
+elements on scroll), reduced-motion gated.
+
+QA (live `/docs/`): decorated; 1 h1; 7 h2 with steps; 9 code blocks (15 prompts);
+3 callouts; 1 shortcut band; 2 sidebar links; cream ground; no h-scroll; no
+console errors. `about:error` = 0. Lint clean.
