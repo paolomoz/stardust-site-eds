@@ -1,0 +1,141 @@
+/* the-seed — section 01, ink ground (body default). */
+.the-seed {
+  display: block;
+  padding: clamp(48px, 5vw + 32px, 112px) 0;
+  position: relative;
+}
+
+.the-seed .head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 32px;
+  flex-wrap: wrap;
+  margin-bottom: 56px;
+}
+
+.the-seed .eyebrow {
+  font: 500 12px/1 var(--mono);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--amber);
+  display: inline-block;
+}
+
+.the-seed .eyebrow .num {
+  color: var(--dust-50);
+  margin-right: 12px;
+}
+
+.the-seed .head .right {
+  font: 500 11px/1.4 var(--mono);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--dust-50);
+  text-align: right;
+}
+
+.the-seed h2 {
+  font-size: clamp(34px, 4vw + 20px, 96px);
+  line-height: 0.98;
+  letter-spacing: -0.032em;
+}
+
+.the-seed h2 em {
+  color: var(--amber);
+  font-style: italic;
+}
+
+.the-seed .shift-row {
+  margin-top: 64px;
+  padding: 56px 0;
+  border-top: 1px solid var(--dust-08);
+  border-bottom: 1px solid var(--dust-08);
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 48px;
+  align-items: center;
+}
+
+.the-seed .shift-row .term {
+  font: 500 clamp(22px, 3vw + 8px, 56px)/1.1 var(--display);
+  letter-spacing: -0.022em;
+  color: var(--dust);
+}
+
+.the-seed .shift-row .term.r { text-align: right; }
+
+.the-seed .shift-row .term em {
+  color: var(--amber);
+  font-style: italic;
+}
+
+.the-seed .shift-row .arrow {
+  font: 64px var(--mono);
+  color: var(--amber);
+}
+
+.the-seed .lede-prose {
+  font-size: 18px;
+  max-width: 64ch;
+  margin-top: 56px;
+  color: var(--dust-72);
+}
+
+.the-seed .lede-prose strong { color: var(--dust); }
+
+.the-seed .lede-prose em {
+  color: var(--amber);
+  font-style: italic;
+}
+
+.the-seed .three {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 28px;
+  margin-top: 48px;
+}
+
+.the-seed .card {
+  background: var(--ink-soft);
+  border: 1px solid var(--dust-08);
+  border-radius: 22px;
+  padding: 36px 32px;
+}
+
+.the-seed .card .lbl {
+  font: 500 11px/1 var(--mono);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 18px;
+}
+
+.the-seed .card h3 {
+  font-size: 22px;
+  line-height: 1.2;
+  margin-bottom: 12px;
+  color: var(--dust);
+}
+
+.the-seed .card p {
+  font: 400 15px/1.6 var(--text);
+  color: var(--dust-72);
+  margin: 0;
+  max-width: none;
+}
+
+@media (width <= 980px) {
+  .the-seed .three { grid-template-columns: 1fr; }
+
+  .the-seed .shift-row {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .the-seed .shift-row .term.r { text-align: left; }
+
+  .the-seed .shift-row .arrow {
+    transform: rotate(90deg);
+    justify-self: start;
+  }
+}

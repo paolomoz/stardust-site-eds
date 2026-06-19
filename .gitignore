@@ -8,6 +8,11 @@ helix-importer-ui
 *.bak
 .idea
 
+# secrets + local QA harness (never commit)
+.env
+.env.*
+qa/
+
 # Ensure these files are tracked
 !CLAUDE.md
 !AGENTS.md

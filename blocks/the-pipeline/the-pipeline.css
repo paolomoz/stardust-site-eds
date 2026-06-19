@@ -1,0 +1,114 @@
+/* the-pipeline — full-bleed dark scene, lifted from prototype .pipeline-scene */
+.the-pipeline {
+  margin: 64px calc(50% - 50vw) 0;
+  width: 100vw;
+  padding: 67px var(--pad);
+  background: linear-gradient(180deg, var(--ink-deep) 0%, var(--ink) 100%);
+}
+
+.the-pipeline .inner {
+  max-width: var(--maxw);
+  margin: 0 auto;
+}
+
+.the-pipeline .pipeline {
+  background: var(--ink);
+  border: 1px solid var(--dust-08);
+  border-radius: 22px;
+  padding: 40px;
+}
+
+.the-pipeline .lane-name {
+  font: italic 600 18px/1 var(--display);
+  color: var(--dust);
+  margin-bottom: 22px;
+  display: block;
+}
+
+.the-pipeline .pills {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+  gap: 12px;
+  align-items: center;
+}
+
+.the-pipeline .pill {
+  background: var(--ink-soft);
+  border: 1px solid var(--dust-15);
+  border-radius: 12px;
+  padding: 18px;
+  font: 500 13px/1 var(--mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--dust);
+  text-align: center;
+}
+
+.the-pipeline .pill .step-name {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+}
+
+.the-pipeline .pill .caption {
+  display: block;
+  font: 500 10px/1.4 var(--mono);
+  letter-spacing: 0.08em;
+  color: var(--dust-50);
+  text-transform: none;
+}
+
+.the-pipeline .pills .arrow {
+  font: 24px var(--mono);
+  color: var(--amber);
+  text-align: center;
+}
+
+.the-pipeline .three {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-top: 56px;
+}
+
+.the-pipeline .card {
+  background: var(--ink-soft);
+  border: 1px solid var(--dust-08);
+  border-radius: 22px;
+  padding: 36px 32px;
+}
+
+.the-pipeline .card .lbl {
+  font: 500 11px/1 var(--mono);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 18px;
+}
+
+.the-pipeline .card h3 {
+  font-size: 22px;
+  line-height: 1.2;
+  margin-bottom: 12px;
+  color: var(--dust);
+}
+
+.the-pipeline .card p {
+  font: 400 15px/1.6 var(--text);
+  color: var(--dust-72);
+  margin: 0;
+  max-width: none;
+}
+
+@media (width <= 980px) {
+  .the-pipeline .pills {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .the-pipeline .pills .arrow {
+    transform: rotate(90deg);
+    justify-self: center;
+  }
+  .the-pipeline .three { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,86 @@
+/**
+ * before-after — full-bleed two-up proof figures (before / after Stardust).
+ *
+ * Authoring rows (positional):
+ *   1. before image  — <img>/<picture>
+ *   2. after image   — <img>/<picture>
+ *
+ * Each image links out to the repo; the "after" figure also carries the
+ * animated "real one" easter-egg sticker (CSS-driven, no inline script).
+ */
+
+const LINK = 'https://github.com/adobe/skills/tree/main/plugins/stardust';
+
+const STICKER = `
+  <a class="real-sticker" href="${LINK}" target="_blank" rel="noopener"
+     aria-label="Open a real Stardust sample in a new tab">
+    <svg class="rs-svg" viewBox="0 0 200 200" aria-hidden="true">
+      <defs>
+        <path id="rs-circle" d="M100,100 m-72,0 a72,72 0 1,1 144,0 a72,72 0 1,1 -144,0" />
+      </defs>
+      <circle class="rs-halo" cx="100" cy="100" r="88" fill="none" stroke="#e8b95e" stroke-width="2.5"/>
+      <circle class="rs-halo rs-halo-2" cx="100" cy="100" r="88" fill="none" stroke="#e8b95e" stroke-width="2.5"/>
+      <circle cx="100" cy="100" r="88" fill="#e8b95e"/>
+      <circle cx="100" cy="100" r="82" fill="none" stroke="#0A1024" stroke-width="1.2"/>
+      <g class="rs-rim">
+        <text fill="#0A1024" font-family="SF Mono, JetBrains Mono, ui-monospace, monospace"
+              font-size="13" font-weight="700" letter-spacing="4">
+          <textPath href="#rs-circle">★ REAL · STARDUST · SAMPLE · CLICK ME · ★ REAL · STARDUST · SAMPLE · CLICK ME · </textPath>
+        </text>
+      </g>
+      <g class="rs-logo" transform="translate(100,100) scale(0.78) translate(-100,-100)">
+        <g fill="#0A1024">
+          <rect x="92" y="26" width="16" height="16"/>
+          <rect x="92" y="46" width="16" height="16" opacity="0.7"/>
+          <rect x="92" y="66" width="16" height="16" opacity="0.5"/>
+          <rect x="92" y="118" width="16" height="16" opacity="0.5"/>
+          <rect x="92" y="138" width="16" height="16" opacity="0.7"/>
+          <rect x="92" y="158" width="16" height="16"/>
+          <rect x="26" y="92" width="16" height="16"/>
+          <rect x="46" y="92" width="16" height="16" opacity="0.7"/>
+          <rect x="66" y="92" width="16" height="16" opacity="0.5"/>
+          <rect x="118" y="92" width="16" height="16" opacity="0.5"/>
+          <rect x="138" y="92" width="16" height="16" opacity="0.7"/>
+          <rect x="158" y="92" width="16" height="16"/>
+        </g>
+        <rect x="85" y="85" width="30" height="30" fill="#0A1024"/>
+      </g>
+    </svg>
+    <span class="rs-tip">It's a real one →</span>
+  </a>`;
+
+export default async function decorate(block) {
+  const rows = [...block.children];
+  const labels = ['Before', 'After · Stardust'];
+  const frag = document.createDocumentFragment();
+
+  rows.forEach((row, i) => {
+    const media = row.querySelector('picture, img');
+    if (!media) return;
+    const isAfter = i === rows.length - 1 && rows.length > 1;
+    const figure = document.createElement('figure');
+    figure.className = isAfter ? 'after' : 'before';
+
+    const link = document.createElement('a');
+    link.className = 'figure-link';
+    link.href = LINK;
+    link.target = '_blank';
+    link.rel = 'noopener';
+    link.setAttribute('aria-label', 'Open a Stardust sample in a new tab');
+
+    const tag = document.createElement('span');
+    tag.className = 'label-tag';
+    tag.textContent = labels[isAfter ? 1 : 0];
+    link.append(tag, media);
+    figure.append(link);
+
+    if (isAfter) {
+      const wrap = document.createElement('div');
+      wrap.innerHTML = STICKER;
+      figure.append(wrap.firstElementChild);
+    }
+    frag.append(figure);
+  });
+
+  block.replaceChildren(frag);
+}

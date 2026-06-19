@@ -1,20 +1,75 @@
-footer {
-  background-color: var(--light-color);
-  font-size: var(--body-font-size-xs);
+/* Stardust footer — editorial colophon, lifted from prototype footer.colophon */
+footer .colophon {
+  padding: 56px 0 45px;
+  background: var(--ink-deep);
+  border-top: 4px solid var(--amber);
+  color: var(--dust-50);
+  text-align: center;
 }
 
-footer .footer > div {
-  margin: auto;
-  max-width: 1200px;
-  padding: 40px 24px 24px;
+footer .colophon .container {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  align-items: center;
+  max-width: 720px;
 }
 
-footer .footer p {
+footer .colophon .mark-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--dust);
+}
+
+footer .colophon .mark-row svg { display: block; }
+
+footer .colophon .mark-row .wordmark {
+  font: 600 28px/1 var(--display);
+  letter-spacing: -0.018em;
+}
+
+footer .colophon .tagline {
   margin: 0;
+  max-width: 38ch;
+  font: italic 400 18px/1.4 var(--display);
+  color: var(--dust-72);
+  letter-spacing: -0.005em;
 }
 
-@media (width >= 900px) {
-  footer .footer > div {
-    padding: 40px 32px 24px;
-  }
+footer .colophon .tagline em {
+  color: var(--amber);
+  font-style: italic;
+}
+
+footer .colophon .links {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+  font: 500 12px/1 var(--mono);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+footer .colophon .links a {
+  color: var(--dust);
+  text-decoration: none;
+  transition: color 120ms ease;
+}
+
+footer .colophon .links a:hover { color: var(--amber); }
+footer .colophon .links .dot { color: var(--amber); }
+
+footer .colophon .meta {
+  font: 500 11px/1 var(--mono);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--dust-50);
+}
+
+footer .colophon .meta .op {
+  color: var(--amber);
+  padding: 0 6px;
 }

@@ -1,0 +1,91 @@
+/* aem-route — section 05, cream/dust ground. Quieter informational treatment. */
+.aem-route {
+  display: block;
+  padding: clamp(48px, 5vw + 32px, 112px) 0;
+  position: relative;
+  background: var(--dust);
+  color: var(--deep-ink);
+}
+
+.aem-route .head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 32px;
+  flex-wrap: wrap;
+  margin-bottom: 56px;
+}
+
+.aem-route .eyebrow {
+  font: 500 12px/1 var(--mono);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--amber-deep);
+  display: inline-block;
+}
+
+.aem-route .eyebrow .num {
+  color: rgb(26 31 56 / 50%);
+  margin-right: 12px;
+}
+
+.aem-route .head .right {
+  font: 500 11px/1.4 var(--mono);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgb(26 31 56 / 45%);
+  text-align: right;
+}
+
+.aem-route h2 {
+  font-size: clamp(28px, 4vw, 48px);
+  line-height: 0.98;
+  letter-spacing: -0.032em;
+  color: var(--deep-ink);
+  max-width: 22ch;
+}
+
+.aem-route h2 em {
+  color: var(--amber-deep);
+  font-style: italic;
+}
+
+.aem-route .lede {
+  font-size: 18px;
+  line-height: 1.6;
+  max-width: 64ch;
+  margin-top: 8px;
+  color: rgb(26 31 56 / 72%);
+}
+
+.aem-route .lede strong { color: var(--deep-ink); }
+
+.aem-route .lede a {
+  color: var(--amber-deep);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+.aem-route .aem-cta-row {
+  margin-top: 28px;
+  max-width: none;
+}
+
+.aem-route .aem-cta {
+  font: 500 14px/1 var(--mono);
+  letter-spacing: 0.06em;
+  color: var(--amber-deep);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+.aem-route .aem-credit {
+  font: 500 11px/1.4 var(--mono);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgb(26 31 56 / 60%);
+  margin-top: 56px;
+  max-width: none;
+}

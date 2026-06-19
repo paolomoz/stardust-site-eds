@@ -1,0 +1,95 @@
+/* ai-facing-brand — section 03, ink ground (body default). */
+.ai-facing-brand {
+  display: block;
+  padding: clamp(48px, 5vw + 32px, 112px) 0;
+  position: relative;
+}
+
+.ai-facing-brand .head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 32px;
+  flex-wrap: wrap;
+  margin-bottom: 56px;
+}
+
+.ai-facing-brand .eyebrow {
+  font: 500 12px/1 var(--mono);
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--amber);
+  display: inline-block;
+}
+
+.ai-facing-brand .eyebrow .num {
+  color: var(--dust-50);
+  margin-right: 12px;
+}
+
+.ai-facing-brand .head .right {
+  font: 500 11px/1.4 var(--mono);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--dust-50);
+  text-align: right;
+}
+
+.ai-facing-brand h2 {
+  font-size: clamp(34px, 4vw + 20px, 96px);
+  line-height: 0.98;
+  letter-spacing: -0.032em;
+}
+
+.ai-facing-brand h2 em {
+  color: var(--amber);
+  font-style: italic;
+}
+
+.ai-facing-brand .lede-prose {
+  font-size: 18px;
+  max-width: 64ch;
+  color: var(--dust-72);
+}
+
+.ai-facing-brand .lede-prose strong { color: var(--dust); }
+
+.ai-facing-brand .three {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-top: 48px;
+}
+
+.ai-facing-brand .card {
+  background: var(--ink-soft);
+  border: 1px solid var(--dust-08);
+  border-radius: 22px;
+  padding: 36px 32px;
+}
+
+.ai-facing-brand .card .lbl {
+  font: 500 11px/1 var(--mono);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 18px;
+}
+
+.ai-facing-brand .card h3 {
+  font-size: 22px;
+  line-height: 1.2;
+  margin-bottom: 12px;
+  color: var(--dust);
+}
+
+.ai-facing-brand .card p {
+  font: 400 15px/1.6 var(--text);
+  color: var(--dust-72);
+  margin: 0;
+  max-width: none;
+}
+
+@media (width <= 980px) {
+  .ai-facing-brand .three { grid-template-columns: 1fr; }
+}
