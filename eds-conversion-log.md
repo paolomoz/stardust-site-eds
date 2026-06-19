@@ -63,3 +63,30 @@ prototype — faithful.
 `npm run lint` clean. `.stylelintrc.json` adds `no-descending-specificity: null` (noisy
 order-only rule); single-line multi-declaration rules expanded to satisfy
 `declaration-block-single-line-max-declarations`.
+
+---
+
+# EDS conversion log — AEM page (`/aem`)
+
+Source: `stardust-site/aem/index.html`. Deployed to `content/aem.html` → `/aem`.
+Its own design system (`--maxw: 1180`, different scales/grounds), so it does NOT
+reuse the home content blocks — only the global `header`/`footer` chrome is shared
+(the page's "Stardust × AEM" nav/footer variants are not reproduced; one site nav).
+
+| Block | Section | Ground | Notes |
+|---|---|---|---|
+| `aem-hero` | hero | ink (radial) | eyebrow, 2-line h1 (amber-italic line 2), highlighted lede, chip row, embedded framed before/after (fixed code-bus assets), cursor-following star |
+| `aem-cards` | 01 The shift | ink-soft (`soft` variant) | head + h2 + lede + 3 cards |
+| `aem-cards` | 02 Why AEM EDS | ink (default) | **reused** — same block, no variant |
+| `aem-bridge` | 03 The bridge | ink-soft | head + h2 + lede + 3-node arch flow (middle = `signal`) + foot |
+| `aem-steps` | 04 Ship your first page | cream | head + h2 + lede + numbered 2-col steps |
+
+Reuse decision (per request): sections 01 & 02 are the same card pattern → ONE
+`aem-cards` block with a `soft` ground variant. The other three sections are
+distinct → new blocks. `aem-cards.js` segments by cell count / `h3`; right-meta
+operators (`› · →`) are amber-wrapped in JS. before/after images are injected as
+fixed block assets (root-relative `/assets/*.jpg`, same #75 fix as the home page).
+
+QA: 1 `<h1>`, 4 h2, 6 h3; all blocks present; signal node correct; images load at
+native AR; no console errors; no h-scroll. Deployed to branch `stardust-home`,
+preview `about:error` = 0. Lint clean.
