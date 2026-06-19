@@ -10,35 +10,29 @@
  *   4. chips          — 2 cells, one per chip
  */
 
-const FIGURES = [
-  {
-    cls: 'before', b: 'Before', span: 'the existing site', src: '/assets/before.jpg', alt: 'A site\'s existing landing page — warm but unmemorable.',
-  },
-  {
-    cls: 'after', b: 'After · Stardust on AEM', span: 'same artifact, edge-served', src: '/assets/after.jpg', alt: 'The same site, redesigned by Stardust, served by AEM Edge Delivery.',
-  },
+// Caption chrome is fixed design; the images themselves are authored (DA Media Bus).
+const CAPTIONS = [
+  { cls: 'before', b: 'Before', span: 'the existing site' },
+  { cls: 'after', b: 'After · Stardust on AEM', span: 'same artifact, edge-served' },
 ];
 
 function wrapOps(text) {
   return text.replace(/\s([›·→])\s/g, ' <span class="op">$1</span> ');
 }
 
-function buildBA() {
+function buildBA(images) {
   const ba = document.createElement('div');
   ba.className = 'ba';
-  FIGURES.forEach((f) => {
+  images.forEach((media, i) => {
+    const cap = CAPTIONS[i] || CAPTIONS[CAPTIONS.length - 1];
     const fig = document.createElement('figure');
     const frame = document.createElement('div');
-    frame.className = `frame ${f.cls}`;
-    const img = document.createElement('img');
-    img.src = f.src;
-    img.alt = f.alt;
-    img.loading = 'lazy';
-    frame.append(img);
-    const cap = document.createElement('figcaption');
-    if (f.cls === 'after') cap.className = 'after';
-    cap.innerHTML = `<b>${f.b}</b><span>${f.span}</span>`;
-    fig.append(frame, cap);
+    frame.className = `frame ${cap.cls}`;
+    frame.append(media);
+    const figcap = document.createElement('figcaption');
+    if (cap.cls === 'after') figcap.className = 'after';
+    figcap.innerHTML = `<b>${cap.b}</b><span>${cap.span}</span>`;
+    fig.append(frame, figcap);
     ba.append(fig);
   });
   return ba;
@@ -75,11 +69,15 @@ export default async function decorate(block) {
   let eyebrowText;
   let ledeP;
   let chipCells;
+  const baImages = [];
 
   rows.forEach((row) => {
     const cells = [...row.children];
+    const media = row.querySelector('picture, img');
     if (row.querySelector('h1')) {
       h1 = row.querySelector('h1');
+    } else if (media) {
+      baImages.push(media);
     } else if (cells.length >= 2) {
       chipCells = cells;
     } else {
@@ -123,7 +121,7 @@ export default async function decorate(block) {
     wrap.append(chiprow);
   }
 
-  wrap.append(buildBA());
+  if (baImages.length) wrap.append(buildBA(baImages));
 
   const dust = document.createElement('div');
   dust.className = 'dust-layer';

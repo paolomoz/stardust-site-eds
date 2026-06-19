@@ -1,31 +1,17 @@
 /**
  * before-after — full-bleed two-up proof figures (before / after Stardust).
  *
- * The two screenshots are FIXED block assets (the prototype hard-codes them and
- * they are not author-managed), so they are referenced root-relative from the
- * code bus and injected here — NOT authored as content <img>. An authored
- * content image with a root-relative src is resolved against the media origin
- * and fails preview ingestion (about:error, #75); a code-bus asset injected by
- * the block resolves correctly in every environment (#67). The "after" figure
- * also carries the animated "real one" easter-egg sticker (CSS-driven).
+ * Authoring rows (positional):
+ *   1. before image  — <img>/<picture> (author-managed, stored in DA Media Bus)
+ *   2. after image   — <img>/<picture>
+ *
+ * The images are real authored content (DA-hosted, swappable by authors); this
+ * block reads them, wraps each in a labelled figure-link, and adds the animated
+ * "real one" easter-egg sticker (CSS-driven) to the "after" figure.
  */
 
 const LINK = 'https://github.com/adobe/skills/tree/main/plugins/stardust';
-
-const FIGURES = [
-  {
-    cls: 'before',
-    label: 'Before',
-    src: '/assets/before.jpg',
-    alt: 'A coffee site\'s existing landing page — warm amber illustration, friendly but unmemorable.',
-  },
-  {
-    cls: 'after',
-    label: 'After · Stardust',
-    src: '/assets/after.jpg',
-    alt: 'The same site, redesigned by Stardust — ink-deep ground, editorial photography, confident type.',
-  },
-];
+const LABELS = ['Before', 'After · Stardust'];
 
 const STICKER = `
   <a class="real-sticker" href="${LINK}" target="_blank" rel="noopener"
@@ -66,17 +52,14 @@ const STICKER = `
   </a>`;
 
 export default async function decorate(block) {
+  const media = [...block.querySelectorAll('picture, img')];
+  if (!media.length) return;
   const frag = document.createDocumentFragment();
 
-  FIGURES.forEach((f) => {
-    const isAfter = f.cls === 'after';
+  media.forEach((m, i) => {
+    const isAfter = i === media.length - 1 && media.length > 1;
     const figure = document.createElement('figure');
-    figure.className = f.cls;
-
-    const img = document.createElement('img');
-    img.src = f.src;
-    img.alt = f.alt;
-    img.loading = 'lazy';
+    figure.className = isAfter ? 'after' : 'before';
 
     const link = document.createElement('a');
     link.className = 'figure-link';
@@ -87,8 +70,8 @@ export default async function decorate(block) {
 
     const tag = document.createElement('span');
     tag.className = 'label-tag';
-    tag.textContent = f.label;
-    link.append(tag, img);
+    tag.textContent = LABELS[isAfter ? 1 : 0];
+    link.append(tag, m);
     figure.append(link);
 
     if (isAfter) {
