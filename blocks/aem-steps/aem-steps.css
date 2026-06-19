@@ -1,0 +1,136 @@
+/* aem-steps — section 04, cream/dust ground. */
+.aem-steps {
+  display: block;
+  padding: clamp(56px, 6vw + 32px, 120px) 0;
+  position: relative;
+  overflow: hidden;
+  background: var(--dust);
+  color: var(--deep-ink);
+}
+
+.aem-steps .wrap {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 4vw, 56px);
+}
+
+.aem-steps .head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 36px;
+}
+
+.aem-steps .eyebrow {
+  font: 500 11px/1 var(--mono);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--amber-deep);
+  display: inline-block;
+}
+
+.aem-steps .eyebrow .num {
+  color: currentcolor;
+  opacity: 0.5;
+  margin-right: 8px;
+}
+
+.aem-steps .head .right {
+  font: 500 11px/1 var(--mono);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--deep-ink);
+  opacity: 0.4;
+}
+
+.aem-steps .head .right .op {
+  color: var(--amber-deep);
+  opacity: 1;
+  padding: 0 6px;
+}
+
+.aem-steps h2 {
+  font-size: clamp(28px, 3vw + 14px, 56px);
+  line-height: 1.08;
+  letter-spacing: -0.022em;
+  margin-bottom: 18px;
+  color: var(--deep-ink);
+}
+
+.aem-steps h2 em {
+  color: var(--amber-deep);
+  font-style: italic;
+}
+
+.aem-steps .lede {
+  margin-top: 4px;
+  color: rgb(26 31 56 / 72%);
+  max-width: 64ch;
+}
+
+.aem-steps .steps {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 22px 36px;
+  margin-top: 28px;
+  counter-reset: step;
+  list-style: none;
+  padding: 0;
+}
+
+.aem-steps .steps li {
+  counter-increment: step;
+  padding-left: 48px;
+  position: relative;
+  line-height: 1.55;
+  font-size: 15px;
+  color: rgb(26 31 56 / 82%);
+}
+
+.aem-steps .steps li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: -3px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--dust);
+  border: 1.5px solid var(--amber-deep);
+  color: var(--amber-deep);
+  font: 600 13px/30px var(--mono);
+  text-align: center;
+  transition: transform 0.3s, background 0.3s, color 0.3s;
+}
+
+.aem-steps .steps li:hover::before {
+  transform: rotate(180deg) scale(1.05);
+  background: var(--amber);
+  color: var(--ink);
+}
+
+.aem-steps .steps li strong {
+  font-weight: 600;
+  color: var(--deep-ink);
+}
+
+.aem-steps .steps li code {
+  font-family: var(--mono);
+  font-size: 0.92em;
+  background: rgb(232 185 94 / 18%);
+  color: var(--amber-deep);
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+
+.aem-steps .steps li a {
+  color: var(--amber-deep);
+  border-bottom: 1px solid rgb(201 130 45 / 40%);
+  text-decoration: none;
+}
+
+@media (width <= 880px) {
+  .aem-steps .steps { grid-template-columns: 1fr; }
+}
