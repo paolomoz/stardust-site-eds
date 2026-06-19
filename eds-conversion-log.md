@@ -90,3 +90,21 @@ fixed block assets (root-relative `/assets/*.jpg`, same #75 fix as the home page
 QA: 1 `<h1>`, 4 h2, 6 h3; all blocks present; signal node correct; images load at
 native AR; no console errors; no h-scroll. Deployed to branch `stardust-home`,
 preview `about:error` = 0. Lint clean.
+
+---
+
+# Update — images moved to DA Media Bus
+
+The before/after screenshots are now **author-managed DA content**, not code-bus
+assets. Uploaded the optimized JPEGs to DA at `/media/stardust/{before,after}.jpg`
+(`PUT admin.da.live/source/.../media/...`, served from `content.da.live`), and
+author them as real `<img src="https://content.da.live/.../media/stardust/*.jpg">`
+in the content. The preview pipeline ingests them into Media Bus and delivers
+optimized responsive `<picture>` (content-addressed, deduped across both pages).
+Removed `assets/*.jpg` from the repo.
+
+`before-after` and `aem-hero` now READ the authored images (don't inject fixed
+assets). Gotcha fixed: collect **one media per row** (`row.querySelector('picture,
+img')`) — a block-wide `querySelectorAll('picture, img')` double-counts each
+`<picture>` with its own inner `<img>` once the pipeline wraps them, yielding 2×
+the figures (invisible in the bare-`<img>` harness, only appears live).
