@@ -1,0 +1,237 @@
+<body>
+  <header></header>
+  <main>
+    <div>
+      <div class="metadata">
+        <div><div>Title</div><div>Commands &middot; Stardust</div></div>
+        <div><div>Description</div><div>Every Stardust sub-command: uplift, extract, direct, prototype, migrate, deploy, diff, prepare-migration. Inputs, flags, and what each writes.</div></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="docs-commands">
+        <div><div>
+          <p><a href="/docs/">Docs</a> &#8250; Commands</p>
+          <p>02 &middot; Commands</p>
+          <h1>Every sub-command,<br><em>named.</em></h1>
+          <p>Reference for the Stardust sub-commands. Inputs, common flags, and the artifacts each one writes.</p>
+          <blockquote><p><strong>You don't need to memorize the syntax.</strong> Every command and flag can be triggered through plain conversational intent &mdash; Stardust reads your phrasing and routes it. The reference below is the canonical form, not a requirement.</p></blockquote>
+          <ol>
+            <li><a href="#uplift">/stardust:uplift|shortcut</a></li>
+            <li><a href="#extract">/stardust:extract|01</a></li>
+            <li><a href="#direct">/stardust:direct|02</a></li>
+            <li><a href="#prototype">/stardust:prototype|03</a></li>
+            <li><a href="#migrate">/stardust:migrate|04</a></li>
+            <li><a href="#deploy">/stardust:deploy|AEM</a></li>
+            <li><a href="#diff">/stardust:diff|AEM</a></li>
+          </ol>
+          <p>The main flow is four commands in order &mdash; <code>extract</code> describes the current state, <code>direct</code> resolves a target, <code>prototype</code> renders proposed redesigns, <code>migrate</code> ships deployable HTML. Each writes its own artifacts under <code>stardust/</code>; the next reads them. You can run them in order, or jump in at any point. For a presales pitch deck, the <code>uplift</code> shortcut collapses extract &rarr; direct &rarr; three variants into one command. To ship to AEM Edge Delivery, <code>deploy</code> converts the approved page into authorable EDS blocks and <code>diff</code> verifies the built page against the source prototype.</p>
+        </div></div>
+
+        <div><div>
+          <h2>stardust:uplift</h2>
+          <p>One URL in. Three presales-quality redesign variants out. Collapses <code>extract &rarr; direct &rarr; prototype &times; 3</code> into one opinionated command &mdash; every variability axis is picked from the captured brand surface rather than asked. Variant C is always cinematic.</p>
+          <h3>Syntax</h3>
+          <pre>&#8250; /stardust:uplift &lt;url&gt; [flags]</pre>
+          <h3>Flags</h3>
+          <ul>
+            <li>&lt;url&gt; :: Required. The page to redesign. Defaults to the homepage when the URL has no path.</li>
+            <li>--page &lt;slug&gt; :: Override the slug if the URL points elsewhere or you want a different surface.</li>
+            <li>--cinematic-register &lt;name&gt; :: Override the auto-picked register for variant C. One of <code>arrival</code>, <code>kinetic-display</code>, <code>live-systems</code>, <code>editorial</code>, <code>kinetic-grid</code>. Records <code>registerSource: "user-override"</code> in C's provenance.</li>
+            <li>--two-variants :: Render only A and C (skip B). Useful when the brand surface is thin and a forced three-way differentiation would produce a weak middle.</li>
+          </ul>
+          <h3>Writes</h3>
+          <ul>
+            <li><code>stardust/uplift-improvements.md</code> :: five specific captured-site weaknesses &mdash; load-bearing for variant A</li>
+            <li><code>stardust/uplift-questions.md</code> :: "what if&hellip;" candidate walk with disqualifications</li>
+            <li><code>stardust/direction.md</code> :: resolved direction + three variant declarations</li>
+            <li><code>stardust/prototypes/&lt;slug&gt;-{A,B,C}-proposed.html</code> :: three rendered variants</li>
+            <li><code>stardust/prototypes/&lt;slug&gt;-C-cinematic.html</code> :: cinematic variant C</li>
+            <li><code>DESIGN-{A,B,C}.{md,json}</code> :: per-variant design specs at project root</li>
+          </ul>
+          <h3>Example</h3>
+          <pre>&#8250; /stardust:uplift https://example.com
+&#8250; /stardust:uplift https://example.com/about --cinematic-register editorial
+&#8250; /stardust:uplift https://example.com --two-variants # thin surface</pre>
+          <blockquote><p><strong>The three-variant role contract is non-negotiable.</strong> A is "tomorrow's version of the site you have today." B is "what if we amplified <em>&lt;captured trait&gt;</em>?" C is "what if motion was part of the identity?" Uplift refuses to ship three weak variants &mdash; if the brand surface can't differentiate three, it drops to two automatically.</p></blockquote>
+        </div></div>
+
+        <div><div>
+          <h2>stardust:extract</h2>
+          <p>Capture a brand surface &mdash; palette, typography, voice, motifs. Most often from a live URL (Stardust crawls it), but also from a prompt, a document, a Figma file, or any other source where brand traits can be read. Descriptive only; does not modify the source.</p>
+          <h3>Syntax</h3>
+          <pre>&#8250; /stardust:extract [url] [flags]</pre>
+          <h3>Flags</h3>
+          <ul>
+            <li>[url] :: Optional. The most common source. If supplied, Stardust crawls the origin (a path narrows to a subtree). If omitted, supply another source via the chat &mdash; a prompt describing the brand, a document, a Figma URL, an image.</li>
+            <li>--cap &lt;N&gt; :: URL crawl only. Override the default 5-page cap. Stardust picks the home plus four IA pillars by default.</li>
+            <li>--all :: URL crawl only. Lift the cap entirely. Crawl every discovered page after junk filtering.</li>
+            <li>--pages &lt;slug,&hellip;&gt; :: URL crawl only. Restrict the crawl to specific paths. Bypasses the cap.</li>
+            <li>--refresh &lt;slug&gt; :: Re-extract one page that already exists in <code>state.json</code>.</li>
+            <li>--wait &lt;mode&gt; :: URL crawl only. Wait strategy per page: <code>fast</code>, <code>medium</code> (default), <code>spec</code>, or <code>auto</code>. Use <code>spec</code> for JavaScript-driven sites.</li>
+          </ul>
+          <h3>Writes</h3>
+          <ul>
+            <li><code>stardust/current/PRODUCT.md</code> :: descriptive snapshot of the captured brand</li>
+            <li><code>stardust/current/DESIGN.md</code> :: + <code>DESIGN.json</code> &mdash; captured visual surface</li>
+            <li><code>stardust/current/brand-review.html</code> :: eyeball-check artifact</li>
+            <li><code>stardust/current/pages/&lt;slug&gt;.json</code> :: per-page parsed structure + content (URL crawl)</li>
+            <li><code>stardust/current/_brand-extraction.json</code> :: consolidated brand surface</li>
+            <li><code>stardust/state.json</code> :: pages: extracted</li>
+          </ul>
+          <h3>Example</h3>
+          <pre>&#8250; /stardust:extract https://example.com --cap 10 --wait spec
+&#8250; /stardust:extract # with a Figma URL or document attached in chat</pre>
+          <blockquote><p><strong>New site, no source to extract from?</strong> Stardust supports designing new sites too &mdash; provide a brief about the new brand and it will roll a fresh seed without an inherited surface. Redesigning an existing source is the main supported use case today; new-site design works but is less battle-tested.</p></blockquote>
+        </div></div>
+
+        <div><div>
+          <h2>stardust:direct</h2>
+          <p>Resolve a redesign direction from a freeform phrase. Writes the target spec &mdash; what the site should become.</p>
+          <h3>Syntax</h3>
+          <pre>&#8250; /stardust:direct "&lt;phrase&gt;" [flags]</pre>
+          <h3>Flags</h3>
+          <ul>
+            <li>"&lt;phrase&gt;" :: Optional positional. Your freeform redesign intent &mdash; <em>"more editorial"</em>, <em>"feel more premium on mobile"</em>, <em>"keep typography and palette"</em>. If omitted, Stardust asks for one.</li>
+            <li>--re-direct :: Replace the current direction with a new one. Stale-flags any prototyped, approved, or migrated pages.</li>
+            <li>--rebrand :: Force rebrand mode &mdash; full divergence-seed roll, no brand-faithful inheritance. The default is brand-faithful when the captured surface has signal; this flag opts out.</li>
+          </ul>
+          <h3>Writes</h3>
+          <ul>
+            <li><code>PRODUCT.md</code> :: at project root &mdash; target product spec</li>
+            <li><code>DESIGN.md</code> + <code>DESIGN.json</code> :: at project root &mdash; target design system</li>
+            <li><code>stardust/direction.md</code> :: resolved direction + full reasoning trace</li>
+            <li><code>stardust/state.json</code> :: pages: extracted &rarr; directed</li>
+          </ul>
+          <h3>Example</h3>
+          <pre>&#8250; /stardust:direct "more editorial. lean into typography. keep the palette."</pre>
+        </div></div>
+
+        <div><div>
+          <h2>stardust:prototype</h2>
+          <p>Generate a proposed redesign for one page or all directed pages. Writes a per-page composition brief, then renders the proposed HTML, then opens a before/after viewer.</p>
+          <h3>Syntax</h3>
+          <pre>&#8250; /stardust:prototype [slug] [flags]</pre>
+          <h3>Flags</h3>
+          <ul>
+            <li>[slug] :: Optional positional. Prototype just this page. Without it, prototype every <code>directed</code> page that isn't <code>stale</code>.</li>
+            <li>--refresh-stale :: Re-prototype every page flagged <code>stale</code> by a direction change.</li>
+            <li>--all :: Prototype every <code>directed</code> page, including stale ones.</li>
+            <li>--no-iterate :: Render the proposed file and open the viewer, but skip the iteration loop. You iterate manually later.</li>
+            <li>--no-critique :: Skip the automatic post-render critique pass. Default behaviour gates <code>prototyped</code> status on P0/P1 findings.</li>
+            <li>--cinematic :: Layer a cinematic motion register on top of the static prototype. Register is read from <code>DESIGN.json.extensions.motion.register</code> (written by <code>direct</code>); falls back to the auto-selection heuristic if absent. Output is <code>&lt;slug&gt;-cinematic.html</code>, alongside the static <code>&lt;slug&gt;-proposed.html</code> &mdash; never replacing it.</li>
+            <li>--cinematic=&lt;register&gt; :: Same as <code>--cinematic</code> but forces a specific register: <code>arrival</code>, <code>kinetic-display</code>, <code>live-systems</code>, <code>editorial</code>, or <code>kinetic-grid</code>. Recorded as <code>registerSource: "user-override"</code> so reviewers can spot when direction's heuristic was bypassed.</li>
+          </ul>
+          <h3>Writes</h3>
+          <ul>
+            <li><code>stardust/prototypes/&lt;slug&gt;-shape.md</code> :: per-page composition brief</li>
+            <li><code>stardust/prototypes/&lt;slug&gt;-proposed.html</code> :: the proposed redesign</li>
+            <li><code>stardust/prototypes/&lt;slug&gt;-cinematic.html</code> :: cinematic overlay (when <code>--cinematic</code> is set)</li>
+            <li><code>stardust/prototypes/&lt;slug&gt;.html</code> :: before/after viewer</li>
+            <li><code>stardust/state.json</code> :: page status: directed &rarr; prototyped</li>
+          </ul>
+          <h3>Example</h3>
+          <pre>&#8250; /stardust:prototype home
+&#8250; /stardust:prototype home --cinematic
+&#8250; /stardust:prototype home --cinematic=editorial
+&#8250; /stardust:prototype # every directed page</pre>
+        </div></div>
+
+        <div><div>
+          <h2>stardust:migrate</h2>
+          <p>Emit deployable static HTML from approved prototypes. The final step. Output is yours to publish anywhere.</p>
+          <h3>Syntax</h3>
+          <pre>&#8250; /stardust:migrate [slug] [flags]</pre>
+          <h3>Flags</h3>
+          <ul>
+            <li>[slug] :: Optional positional. Migrate just this page. Without it, migrate every page whose status is <code>directed</code>, <code>prototyped</code>, or <code>approved</code> (and not <code>stale</code>).</li>
+            <li>--refresh-stale :: Re-migrate every page flagged <code>stale</code>. Default skips them.</li>
+            <li>--all :: Migrate every page including stale ones.</li>
+            <li>--force :: Re-migrate every page even when the idempotent skip would skip them.</li>
+            <li>--require-approved :: Refuse to migrate any non-<code>approved</code> page. Default migrates <code>directed</code> pages too.</li>
+            <li>--strict-canon :: Refuse approvals that conflict with canon. Default logs the deviation and continues.</li>
+          </ul>
+          <h3>Writes</h3>
+          <ul>
+            <li><code>stardust/migrated/&lt;slug&gt;.html</code> :: deployable static page</li>
+            <li><code>stardust/migrated/assets/</code> :: media + fonts + anything referenced</li>
+            <li><code>stardust/state.json</code> :: page status: prototyped/approved &rarr; migrated</li>
+          </ul>
+          <h3>Example</h3>
+          <pre>&#8250; /stardust:migrate home
+&#8250; /stardust:migrate # whole site</pre>
+
+          <h2>+stardust:prepare-migration</h2>
+          <p>Before <code>migrate</code> can run at scale, the project needs a typed-page catalog, a module catalog, canon, and downloaded assets. <code>prepare-migration</code> orchestrates that cascade. It runs <code>extract --prep</code>, <code>direct --prep</code>, <code>prototype --prep</code>, and an assets-prep phase in sequence, with confirmation gates between phases.</p>
+          <h3>Syntax</h3>
+          <pre>&#8250; /stardust:prepare-migration [flags]</pre>
+          <h3>Flags</h3>
+          <ul>
+            <li>--from &lt;phase&gt; :: Resume the cascade from a specific phase. Values: <code>extract</code>, <code>direct</code>, <code>prototype</code>, <code>assets</code>. Default starts from the earliest incomplete phase.</li>
+            <li>--skip-confirm :: Skip the per-phase confirmation gates. Useful for re-runs where the catalog is already settled.</li>
+            <li>--canon-from &lt;slug&gt; :: Override the default canon-author (which is <code>home</code>). Forwarded to <code>prototype --prep</code> when that phase runs.</li>
+          </ul>
+          <h3>Writes</h3>
+          <ul>
+            <li><code>state.json.pages[].type</code> :: page typing &mdash; set by extract --prep</li>
+            <li><code>DESIGN.json.extensions.modules[]</code> :: module catalog &mdash; confirmed by direct --prep</li>
+            <li><code>DESIGN.json.extensions.colorReservations[]</code> :: color reservations &mdash; by direct --prep</li>
+            <li><code>stardust/canon/</code> :: header, footer, css, modules &mdash; by prototype --prep</li>
+            <li><code>stardust/migrated/assets/favicon-*</code> :: favicon variants &mdash; by assets prep</li>
+            <li><code>stardust/migrated/assets/fonts/</code> :: downloaded webfont files &mdash; by assets prep</li>
+          </ul>
+          <h3>Example</h3>
+          <pre>&#8250; /stardust:prepare-migration
+&#8250; /stardust:prepare-migration --from prototype --canon-from about</pre>
+          <blockquote><p><strong>Why the two-step boundary?</strong> The split between <code>prepare-migration</code> and <code>migrate</code> is intentional. It makes "I'm committing to migrate this site" a conscious gesture and keeps idempotency obvious &mdash; re-running prep resumes from the earliest incomplete phase without re-doing settled work.</p></blockquote>
+        </div></div>
+
+        <div><div>
+          <h2>stardust:deploy &mdash; ship to AEM</h2>
+          <p>Convert an approved Stardust prototype into an AEM Edge Delivery experience and deploy it. Each prototype section becomes one independent EDS block &mdash; the section's CSS becomes that block's scoped stylesheet, and its text and images become authorable. Header and footer drop into static fragments; the page ships as a content fragment to AEM. Targets a project on the AuthorKit runtime; a vanilla <code>aem-boilerplate</code> is bootstrapped first.</p>
+          <h3>Syntax</h3>
+          <pre>&#8250; /stardust:deploy [prototype]</pre>
+          <h3>Requires</h3>
+          <ul>
+            <li>An EDS project :: A project at the repo root with <code>blocks/</code>, <code>styles/</code>, <code>scripts/</code>, and <code>head.html</code>. A vanilla <code>aem-boilerplate</code> triggers a runtime bootstrap (the AuthorKit runtime is ported in) before conversion.</li>
+            <li>[prototype] :: The approved prototype to convert. Defaults to discovering prototypes under <code>stardust/prototypes/</code> (or a <code>samples/</code> folder); JSX prototypes are pre-rendered to static HTML first.</li>
+          </ul>
+          <h3>Writes</h3>
+          <ul>
+            <li><code>blocks/&lt;block&gt;/</code> :: one block (decorate JS + scoped CSS) per prototype section</li>
+            <li><code>styles/styles.css</code> :: foundation tokens, global reset, self-hosted fonts</li>
+            <li><code>fragments/header.html</code> + <code>fragments/footer.html</code> :: static chrome</li>
+            <li>the content page :: a body fragment, shipped to AEM via the source API</li>
+          </ul>
+          <h3>Example</h3>
+          <pre>&#8250; /stardust:deploy # convert + ship the approved prototype</pre>
+        </div></div>
+
+        <div><div>
+          <h2>stardust:diff &mdash; verify the build</h2>
+          <p>Reconcile a built page against its source prototype with two complementary probes: a pixel/layout diff (stretched images, dropped wraps, blank renders, colour flips) and a structural content + typography diff (dropped or mis-slotted headings, eyebrows, CTAs; rendered-face font forks). Run both &mdash; either alone gives a false "looks fine". Stack-agnostic via profiles.</p>
+          <h3>Syntax</h3>
+          <pre>&#8250; /stardust:diff &lt;prototypeURL&gt; &lt;buildURL&gt; [flags]</pre>
+          <h3>Flags</h3>
+          <ul>
+            <li>--profile &lt;eds|generic&gt; :: Remediation language + thresholds. <code>eds</code> (default) carries Edge Delivery / DA hints; <code>generic</code> is neutral for any prototype&#8596;build comparison.</li>
+            <li>--width &lt;px&gt; :: Viewport width for both renders. Default 1280.</li>
+            <li>--main &lt;selector&gt; :: Content-root selector for the structural diff. Defaults to the profile's root.</li>
+            <li>--sections &lt;a,b&gt; :: Per-section screenshots for the pixel probe.</li>
+            <li>--json :: Dump both role-classified inventories as JSON.</li>
+          </ul>
+          <h3>Outputs</h3>
+          <ul>
+            <li>a structural report :: &#128308; missing / role-swapped content &middot; &#128993; body drift &middot; &#128992; font forks</li>
+            <li>a pixel/layout report :: geometry, image, and colour red flags</li>
+            <li><code>&lt;out&gt;/</code> screenshots :: per-section captures when <code>--sections</code> is set</li>
+          </ul>
+          <h3>Example</h3>
+          <pre>&#8250; /stardust:diff "$PROTO" "$BUILD" --profile eds
+&#8250; /stardust:diff "$PROTO" "$BUILD" --profile generic # any stack</pre>
+        </div></div>
+      </div>
+    </div>
+  </main>
+  <footer></footer>
+</body>
