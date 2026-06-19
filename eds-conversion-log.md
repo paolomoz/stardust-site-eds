@@ -145,3 +145,39 @@ elements on scroll), reduced-motion gated.
 QA (live `/docs/`): decorated; 1 h1; 7 h2 with steps; 9 code blocks (15 prompts);
 3 callouts; 1 shortcut band; 2 sidebar links; cream ground; no h-scroll; no
 console errors. `about:error` = 0. Lint clean.
+
+---
+
+# EDS conversion log — Commands page (`/docs/commands/`)
+
+Source: `stardust-site/docs/commands/index.html` → `content/docs/commands/index.html`
+→ served at **`/docs/commands/`** (index convention).
+
+Shares the docs split-layout *shell* with `/docs/` (same sidebar + grid + ink
+rail design) but the article design is substantially different (mono `/`+name
+command headings, mono section labels, flag spec lists, writes lists, TOC,
+breadcrumb, addendum). Per the strict reuse rule (reuse only if the design is
+*exactly* the same), that different article design → a NEW `docs-commands`
+block; the `docs` block's step-headings / shortcut-band / zap reconstruction
+doesn't fit. The shell is duplicated (same design, but it lives inside the
+atomic `docs` block, so it can't be partially reused) — self-contained per the
+methodology. `header`/`footer` reused.
+
+### `docs-commands` block
+Same shell as `docs`, with a reference article reconstructed from preserve-list
+tags + delimiters (DA strips `<span>`/classes):
+- breadcrumb — first `<p>` linking `/docs/`; eyebrow — `NN ·`; h1 accent — `<em>`
+- TOC — an `<ol>` of anchors, each `name|step` (split on `|`)
+- command h2 — `stardust:name` → `/` slash + name; `name — suffix` → suffix label;
+  `+name` opens the prepare-migration addendum box
+- h3 mono labels (Syntax/Flags/Requires/Writes/Outputs/Example) drive the next list:
+  a `<ul>` after Flags/Requires → `dl.spec` (split each `li` on ` :: ` into dt/dd);
+  after Writes/Outputs → `ul.writes` (code path + `.desc`)
+- code — leading `$`/`›` prompts, `#`/trailing comments, `<…>`/`[…]`/`"…"` args.
+  **Bug fixed in QA:** wrap args BEFORE prepending the prompt span — otherwise the
+  arg `"…"` rule matches the prompt span's own `class="prompt"` attribute and
+  corrupts it (args + prompts together; only the live/decorated render shows it).
+
+QA (live `/docs/commands/`): decorated; 1 h1; 7 command sections; 8 spec lists +
+8 writes lists; 1 addendum; 25 code prompts + 20 args (clean); TOC (7); "Commands"
+active in the sidebar; no h-scroll; no console errors. Lint clean.
