@@ -346,6 +346,35 @@
 .docs-commands section.cmd h2 .slash { color: var(--amber-deep); }
 .docs-commands section.cmd h2 .name { color: var(--deep-ink); }
 
+/* Per-command permalink: faint by default, brightens on hover/focus. */
+.docs-commands .permalink {
+  position: relative;
+  margin-left: 0.4em;
+  font-weight: 400;
+  color: var(--amber-deep);
+  text-decoration: none;
+  opacity: 0.38;
+  transition: opacity 120ms ease;
+}
+
+.docs-commands section.cmd h2:hover .permalink,
+.docs-commands .cmd-addendum .addendum-h:hover .permalink,
+.docs-commands .permalink:hover,
+.docs-commands .permalink:focus-visible { opacity: 1; }
+
+.docs-commands .permalink.copied::after {
+  content: "link copied";
+  position: absolute;
+  left: calc(100% + 8px);
+  top: 50%;
+  transform: translateY(-50%);
+  font: 500 11px/1 var(--mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--amber-deep);
+}
+
 .docs-commands section.cmd h2 .suffix {
   font: 500 12px/1 var(--mono);
   letter-spacing: 0.2em;

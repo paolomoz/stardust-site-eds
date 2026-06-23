@@ -118,9 +118,29 @@ function buildToc(ol) {
 function makeH2(el) {
   const h2 = document.createElement('h2');
   const [name, suffix] = splitFirst(el.textContent.trim(), ' — ');
-  h2.innerHTML = `<span class="slash">/</span><span class="name">${name}</span>${suffix ? `<span class="suffix">— ${suffix}</span>` : ''}`;
-  h2.id = name.replace(/^stardust:/, '').replace(/[^a-z0-9]+/gi, '-').toLowerCase();
+  const id = name.replace(/^stardust:/, '').replace(/[^a-z0-9]+/gi, '-').toLowerCase();
+  h2.id = id;
+  h2.innerHTML = `<span class="slash">/</span><span class="name">${name}</span>${suffix ? `<span class="suffix">— ${suffix}</span>` : ''}<a class="permalink" href="#${id}" aria-label="Copy link to ${name}">#</a>`;
   return h2;
+}
+
+/**
+ * Wire each command-heading permalink: clicking it follows the anchor (updates
+ * the URL so the address bar holds a direct link) and copies the full URL to
+ * the clipboard with brief feedback.
+ */
+function wirePermalinks(scope) {
+  scope.querySelectorAll('a.permalink').forEach((a) => {
+    a.addEventListener('click', () => {
+      const id = a.getAttribute('href').slice(1);
+      const url = `${window.location.origin}${window.location.pathname}#${id}`;
+      if (!navigator.clipboard) return;
+      navigator.clipboard.writeText(url).then(() => {
+        a.classList.add('copied');
+        window.setTimeout(() => a.classList.remove('copied'), 1400);
+      }).catch(() => { /* clipboard blocked — the anchor still updates the URL */ });
+    });
+  });
 }
 
 function buildArticle(rows) {
@@ -162,14 +182,17 @@ function buildArticle(rows) {
       article.append(buildToc(el));
     } else if (tag === 'H2') {
       if (text.startsWith('+')) {
+        const aname = text.slice(1).trim();
+        const aid = aname.replace(/^stardust:/, '').replace(/[^a-z0-9]+/gi, '-').toLowerCase();
         const add = document.createElement('div');
         add.className = 'cmd-addendum';
+        add.id = aid;
         const lbl = document.createElement('span');
         lbl.className = 'addendum-lbl';
         lbl.textContent = 'Addendum';
         const h = document.createElement('div');
         h.className = 'addendum-h';
-        h.innerHTML = `<span class="slash">/</span>${text.slice(1).trim()}`;
+        h.innerHTML = `<span class="slash">/</span>${aname}<a class="permalink" href="#${aid}" aria-label="Copy link to ${aname}">#</a>`;
         add.append(lbl, h);
         (section || article).append(add);
         container = add;
@@ -223,6 +246,7 @@ export default async function decorate(block) {
   aside.innerHTML = SIDEBAR;
 
   const article = buildArticle(rows);
+  wirePermalinks(article);
 
   const layout = document.createElement('div');
   layout.className = 'layout';
