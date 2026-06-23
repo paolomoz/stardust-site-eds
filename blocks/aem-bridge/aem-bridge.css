@@ -72,7 +72,7 @@
 
 .aem-bridge .lede a {
   color: var(--amber);
-  border-bottom: 1px solid rgb(232 185 94 / 35%);
+  border-bottom: 1px solid rgb(232 185 94 / 60%);
   text-decoration: none;
 }
 

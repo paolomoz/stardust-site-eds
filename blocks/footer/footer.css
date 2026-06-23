@@ -54,6 +54,9 @@ footer .colophon .links {
 }
 
 footer .colophon .links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   color: var(--dust);
   text-decoration: none;
   transition: color 120ms ease;

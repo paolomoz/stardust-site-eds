@@ -22,6 +22,7 @@ header .nav-mark {
   display: flex;
   align-items: center;
   gap: 10px;
+  min-height: 44px;
   font: 600 14px/1 var(--display);
   color: var(--dust);
   text-decoration: none;
@@ -40,6 +41,9 @@ header .nav-meta {
 }
 
 header .nav-meta a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   color: rgb(245 240 230 / 78%);
   text-decoration: none;
   transition: color 120ms ease;

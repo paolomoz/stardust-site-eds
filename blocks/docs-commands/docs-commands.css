@@ -305,7 +305,8 @@
   letter-spacing: 0;
   text-decoration: none;
   display: flex;
-  align-items: baseline;
+  align-items: center;
+  min-height: 44px;
   gap: 8px;
 }
 
@@ -438,8 +439,8 @@
   margin-top: 56px;
   padding: 28px 28px 24px;
   background: rgb(232 185 94 / 6%);
-  border-left: 3px solid var(--amber-deep);
-  border-radius: 0 12px 12px 0;
+  border: 1px solid rgb(232 185 94 / 22%);
+  border-radius: 12px;
   max-width: 64ch;
   scroll-margin-top: calc(var(--nav-h) + 24px);
 }

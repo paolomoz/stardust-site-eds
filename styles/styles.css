@@ -66,8 +66,8 @@ h1, h2, h3, h4 {
 }
 
 h1 {
-  font-size: clamp(52px, 6vw + 32px, 144px);
-  line-height: 0.94;
+  font-size: clamp(52px, 6vw + 32px, 112px);
+  line-height: 0.96;
   letter-spacing: -0.04em;
 }
 

@@ -1,0 +1,31 @@
+# Stardust
+
+> Stardust is an open-source, AI-driven website redesign tool that turns any URL into a brand-faithful, deployable static website. It extracts a brand's design surface, generates a deterministic brand expression — same seed, same brand — and outputs clean static HTML, optionally migrated to Adobe Experience Manager (AEM) Edge Delivery Services. Built by the AEM team at Adobe; ships as a Claude Code plugin. Math, not mysticism.
+
+## Pipeline
+
+extract → direct → prototype → migrate
+
+## Commands
+
+- [/stardust:uplift](https://stardust.style/docs/commands/#uplift): One-shot redesign from a single URL — extract, direct, and prototype brand-faithful presales variants with no setup.
+- [/stardust:extract](https://stardust.style/docs/commands/#extract): Capture a brand's design surface — palette, type, voice, motifs — from a live URL.
+- [/stardust:direct](https://stardust.style/docs/commands/#direct): Turn the captured surface into design direction and guardrails.
+- [/stardust:prototype](https://stardust.style/docs/commands/#prototype): Generate brand-faithful, deployable static HTML prototypes.
+- [/stardust:migrate](https://stardust.style/docs/commands/#migrate): Migrate prototypes into a target platform.
+- [/stardust:deploy](https://stardust.style/docs/commands/#deploy): Convert a Stardust prototype into an AEM Edge Delivery site — authorable blocks plus content — and deploy it.
+- [/stardust:prepare-migration](https://stardust.style/docs/commands/#prepare-migration): Prepare a site for migration.
+- [/stardust:diff](https://stardust.style/docs/commands/#diff): Reconcile a built site against its prototype.
+
+## Docs
+
+- [Get started](https://stardust.style/docs/): Install Stardust and run your first redesign.
+- [Commands reference](https://stardust.style/docs/commands/): Every sub-command with syntax, flags, writes, and examples.
+- [Stardust on AEM Edge Delivery](https://stardust.style/aem): How Stardust ships to AEM Edge Delivery via stardust:deploy.
+
+## About
+
+- Open source, Apache 2.0
+- Built by the AEM team at Adobe
+- Output is deployable static HTML — files, not lock-in
+- Source: https://github.com/adobe/skills (stardust plugin)
