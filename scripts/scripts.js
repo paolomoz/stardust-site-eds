@@ -114,6 +114,53 @@ function decorateButtons(main) {
 }
 
 /**
+ * Make horizontally-scrollable code blocks reachable by keyboard.
+ * Clears the axe `scrollable-region-focusable` rule (WCAG 2.1.1) so keyboard
+ * users can scroll to command text that overflows the <pre>.
+ * @param {Element} main The main element
+ */
+function decorateCodeBlocks(main) {
+  main.querySelectorAll('pre').forEach((pre) => {
+    if (!pre.hasAttribute('tabindex')) pre.tabIndex = 0;
+  });
+}
+
+/**
+ * Injects site-wide structured data (Organization + WebSite) and, on the home
+ * page, a SoftwareApplication node so answer engines and rich results can read
+ * canonical claims about Stardust.
+ */
+function addStructuredData() {
+  const { origin, pathname } = window.location;
+  const org = {
+    '@type': 'Organization', '@id': `${origin}/#org`, name: 'Adobe', description: 'The AEM team at Adobe', url: 'https://www.adobe.com',
+  };
+  const graph = [
+    org,
+    {
+      '@type': 'WebSite', '@id': `${origin}/#site`, name: 'Stardust', url: `${origin}/`, publisher: { '@id': `${origin}/#org` },
+    },
+  ];
+  if (pathname === '/') {
+    graph.push({
+      '@type': 'SoftwareApplication',
+      name: 'Stardust',
+      applicationCategory: 'DeveloperApplication',
+      operatingSystem: 'Any',
+      description: 'Stardust is an open-source, AI-driven website redesign tool that turns any URL into brand-faithful, deployable static HTML. Built by the AEM team at Adobe; ships as a Claude Code plugin.',
+      url: `${origin}/`,
+      author: { '@id': `${origin}/#org` },
+      license: 'https://www.apache.org/licenses/LICENSE-2.0',
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    });
+  }
+  const script = document.createElement('script');
+  script.type = 'application/ld+json';
+  script.textContent = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph });
+  document.head.append(script);
+}
+
+/**
  * Decorates the main element.
  * @param {Element} main The main element
  */
@@ -159,6 +206,8 @@ async function loadLazy(doc) {
 
   const main = doc.querySelector('main');
   await loadSections(main);
+  decorateCodeBlocks(main);
+  addStructuredData();
 
   const { hash } = window.location;
   const element = hash ? doc.getElementById(hash.substring(1)) : false;

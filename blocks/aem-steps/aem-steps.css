@@ -127,7 +127,7 @@
 
 .aem-steps .steps li a {
   color: var(--amber-deep);
-  border-bottom: 1px solid rgb(201 130 45 / 40%);
+  border-bottom: 1px solid rgb(201 130 45 / 65%);
   text-decoration: none;
 }
 
