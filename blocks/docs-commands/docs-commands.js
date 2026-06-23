@@ -182,14 +182,17 @@ function buildArticle(rows) {
       article.append(buildToc(el));
     } else if (tag === 'H2') {
       if (text.startsWith('+')) {
+        const aname = text.slice(1).trim();
+        const aid = aname.replace(/^stardust:/, '').replace(/[^a-z0-9]+/gi, '-').toLowerCase();
         const add = document.createElement('div');
         add.className = 'cmd-addendum';
+        add.id = aid;
         const lbl = document.createElement('span');
         lbl.className = 'addendum-lbl';
         lbl.textContent = 'Addendum';
         const h = document.createElement('div');
         h.className = 'addendum-h';
-        h.innerHTML = `<span class="slash">/</span>${text.slice(1).trim()}`;
+        h.innerHTML = `<span class="slash">/</span>${aname}<a class="permalink" href="#${aid}" aria-label="Copy link to ${aname}">#</a>`;
         add.append(lbl, h);
         (section || article).append(add);
         container = add;
