@@ -48,7 +48,7 @@ const STICKER = `
         <rect x="85" y="85" width="30" height="30" fill="#0A1024"/>
       </g>
     </svg>
-    <span class="rs-tip">It's a real one →</span>
+    <span class="rs-tip" aria-hidden="true">It's a real one →</span>
   </a>`;
 
 export default async function decorate(block) {

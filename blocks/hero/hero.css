@@ -7,14 +7,14 @@
   flex-direction: column;
   justify-content: center;
   background: radial-gradient(ellipse 90% 70% at 80% 35%, #1a2450 0%, #070c1e 55%, #060a14 100%);
-
-  /* Reserve the full-height box (min-height above) but hide the raw, undecorated
-     rows until decorate() rebuilds the hero — otherwise the taller raw content
-     paints first, then collapses to the decorated layout (CLS on .dust-layer). */
-  visibility: hidden;
 }
 
-.hero[data-block-status="loaded"] { visibility: visible; }
+/* Drop the raw, undecorated rows (display:none removes their height) so the hero
+   holds at min-height:100svh from first paint — the gradient box paints
+   immediately (good Speed Index) and there's no collapse when decorate() runs
+   (no CLS on .dust-layer). Hiding the whole hero instead would blank the
+   viewport and wreck Speed Index. */
+.hero:not([data-block-status="loaded"]) > * { display: none; }
 
 .hero .dust-layer {
   position: absolute;
