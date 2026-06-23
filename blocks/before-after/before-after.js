@@ -15,7 +15,7 @@ const LABELS = ['Before', 'After · Stardust'];
 
 const STICKER = `
   <a class="real-sticker" href="${LINK}" target="_blank" rel="noopener"
-     aria-label="Open a real Stardust sample in a new tab">
+     aria-label="It's a real one — open a real Stardust sample in a new tab">
     <svg class="rs-svg" viewBox="0 0 200 200" aria-hidden="true">
       <defs>
         <path id="rs-circle" d="M100,100 m-72,0 a72,72 0 1,1 144,0 a72,72 0 1,1 -144,0" />
@@ -65,16 +65,18 @@ export default async function decorate(block) {
     const figure = document.createElement('figure');
     figure.className = isAfter ? 'after' : 'before';
 
+    const label = LABELS[isAfter ? 1 : 0];
     const link = document.createElement('a');
     link.className = 'figure-link';
     link.href = LINK;
     link.target = '_blank';
     link.rel = 'noopener';
-    link.setAttribute('aria-label', 'Open a Stardust sample in a new tab');
+    // Accessible name leads with the visible label text (WCAG 2.5.3 Label in Name).
+    link.setAttribute('aria-label', `${label} — open a Stardust sample in a new tab`);
 
     const tag = document.createElement('span');
     tag.className = 'label-tag';
-    tag.textContent = LABELS[isAfter ? 1 : 0];
+    tag.textContent = label;
     link.append(tag, m);
     figure.append(link);
 

@@ -148,7 +148,7 @@
 }
 
 .docs .article .eyebrow .num {
-  color: rgb(26 31 56 / 50%);
+  color: rgb(26 31 56 / 72%);
   margin-right: 10px;
 }
 
@@ -259,11 +259,11 @@
   margin-right: 10px;
   user-select: none;
 }
-.docs .article pre.code .comment { color: rgb(245 240 230 / 45%); }
+.docs .article pre.code .comment { color: rgb(245 240 230 / 65%); }
 
 .docs .article .install-credit {
   font: 400 13px/1.5 var(--text);
-  color: rgb(26 31 56 / 55%);
+  color: rgb(26 31 56 / 72%);
   letter-spacing: -0.002em;
   margin: -6px 0 22px;
   max-width: 64ch;

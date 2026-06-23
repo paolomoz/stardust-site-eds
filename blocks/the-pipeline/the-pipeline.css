@@ -54,7 +54,7 @@
   display: block;
   font: 500 10px/1.4 var(--mono);
   letter-spacing: 0.08em;
-  color: var(--dust-50);
+  color: rgb(245 240 230 / 78%);
   text-transform: none;
 }
 

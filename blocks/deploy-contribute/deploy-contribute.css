@@ -23,7 +23,7 @@
 }
 
 .deploy-contribute .eyebrow .num {
-  color: var(--dust-50);
+  color: rgb(245 240 230 / 78%);
   margin-right: 12px;
 }
 
@@ -31,7 +31,7 @@
   font: 500 11px/1.4 var(--mono);
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--dust-50);
+  color: rgb(245 240 230 / 78%);
   text-align: right;
 }
 
@@ -113,7 +113,7 @@
 
 .deploy-contribute .col p.install-credit {
   font: 400 13px/1.5 var(--text);
-  color: var(--dust-50);
+  color: rgb(245 240 230 / 78%);
   letter-spacing: -0.002em;
   margin: -8px 0 18px;
   max-width: 50ch;

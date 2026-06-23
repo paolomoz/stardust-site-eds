@@ -23,7 +23,7 @@
 }
 
 .ai-facing-brand .eyebrow .num {
-  color: var(--dust-50);
+  color: rgb(245 240 230 / 78%);
   margin-right: 12px;
 }
 
@@ -31,7 +31,7 @@
   font: 500 11px/1.4 var(--mono);
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--dust-50);
+  color: rgb(245 240 230 / 78%);
   text-align: right;
 }
 

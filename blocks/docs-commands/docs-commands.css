@@ -169,7 +169,7 @@
 }
 
 .docs-commands .eyebrow .num {
-  color: rgb(26 31 56 / 50%);
+  color: rgb(26 31 56 / 72%);
   margin-right: 10px;
 }
 
@@ -203,7 +203,7 @@
   color: rgb(26 31 56 / 78%);
 }
 
-.docs-commands .article p em {
+.docs-commands .article em {
   font-style: italic;
   color: var(--amber-deep);
 }
@@ -248,7 +248,7 @@
   margin-right: 10px;
   user-select: none;
 }
-.docs-commands .article pre.code .comment { color: rgb(245 240 230 / 45%); }
+.docs-commands .article pre.code .comment { color: rgb(245 240 230 / 65%); }
 .docs-commands .article pre.code .arg { color: var(--amber-light); }
 
 /* INTRO CALLOUT */
@@ -283,7 +283,7 @@
   font: 500 10px/1 var(--mono);
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: rgb(26 31 56 / 50%);
+  color: rgb(26 31 56 / 72%);
   margin-bottom: 10px;
   display: block;
 }
