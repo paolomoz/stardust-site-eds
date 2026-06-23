@@ -25,7 +25,7 @@ export default async function decorate(block) {
         <span class="wordmark">Stardust</span>
       </div>
 
-      <p class="tagline">A design-phase toolkit. <em>Math, not mysticism.</em></p>
+      <p class="tagline">A design-phase toolkit by the AEM team at Adobe. <em>Math, not mysticism.</em></p>
 
       <div class="links">
         <a href="/docs/">Docs</a>
