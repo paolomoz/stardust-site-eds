@@ -51,18 +51,40 @@ function makeCallout(bq) {
 }
 
 function makeH2(el) {
-  const raw = el.innerHTML;
-  const i = raw.indexOf('|');
   const h2 = document.createElement('h2');
-  let titleText = el.textContent.trim();
-  if (i >= 0) {
-    const step = raw.slice(0, i).trim();
-    const title = raw.slice(i + 1).trim();
-    titleText = title.replace(/<[^>]+>/g, '');
+  let step = '';
+  let title = '';
+  let titleText = '';
+
+  const first = el.firstElementChild;
+  if (first && first.tagName === 'STRONG') {
+    // De-delimited form (preferred): a leading <strong> is the step kicker.
+    // DA preserves <strong> but strips <span>/classes, so the kicker rides a
+    // semantic tag instead of an in-band "|" delimiter.
+    step = first.textContent.trim();
+    const rest = el.cloneNode(true);
+    rest.removeChild(rest.firstElementChild);
+    title = rest.innerHTML.replace(/^\s+/, '');
+    titleText = rest.textContent.trim();
+  } else {
+    const raw = el.innerHTML;
+    const i = raw.indexOf('|');
+    if (i >= 0) {
+      // Back-compat: "Step|Title" delimiter form.
+      step = raw.slice(0, i).trim();
+      title = raw.slice(i + 1).trim();
+      titleText = title.replace(/<[^>]+>/g, '');
+    } else {
+      title = raw;
+      titleText = el.textContent.trim();
+    }
+  }
+
+  if (step) {
     h2.innerHTML = `<span class="step">${step}</span>${title}`;
     h2.dataset.step = step.toLowerCase();
   } else {
-    h2.innerHTML = raw;
+    h2.innerHTML = title;
   }
   const slug = titleText.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
   if (slug) h2.id = slug;

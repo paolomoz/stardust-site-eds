@@ -1,0 +1,92 @@
+<body>
+  <header></header>
+  <main>
+    <div>
+      <div class="metadata">
+        <div><div>Title</div><div>Get started with Stardust &mdash; install &amp; first redesign</div></div>
+        <div><div>Description</div><div>Install Stardust and run your first redesign &mdash; from any URL to a complete, deployable static site in under 30 minutes. No build step, no lock-in.</div></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="docs">
+        <div><div>
+          <h1>Your first redesign,<br><em>end to end.</em></h1>
+          <p>Install Stardust and run your first redesign. From any URL to a complete redesigned static site &mdash; every page, not just the home.</p>
+        </div></div>
+
+        <div><div>
+          <h2><strong>Set up</strong>Install.</h2>
+          <p>From inside Claude Code, add the two marketplaces and install both plugins:</p>
+          <pre>$ claude plugin marketplace add adobe/skills
+$ claude plugin install stardust@adobe-skills
+
+$ claude plugin marketplace add pbakaus/impeccable
+$ claude plugin install impeccable@impeccable</pre>
+          <p>Built on <a href="https://impeccable.style/">impeccable</a>.</p>
+          <p>Both plugins need to be installed for Stardust to run. Once installed, the <code>/stardust:*</code> slash commands are available in any Claude Code session. The <a href="/docs/commands/">commands reference</a> lists every sub-command and flag.</p>
+        </div></div>
+
+        <div><div>
+          <h2><strong>Shortcut</strong>One URL, three variants.</h2>
+          <p>The fastest way to get started. Skip the four-step pipeline and run a single command:</p>
+          <pre>&#8250; /stardust:uplift https://example.com</pre>
+          <p><code>uplift</code> collapses extract &rarr; direct &rarr; prototype &times; 3 into a single opinionated command. It picks every variability axis from the captured brand surface &mdash; palette and typography are pinned, the cinematic register is read from the brand personality, and the "what if&hellip;" candidates for variants B and C are walked from a closed catalog so nothing improvises. Output: variant A ("tomorrow's version of the site you have today"), B ("what if we amplified <em>&lt;captured trait&gt;</em>?"), and C ("what if motion was part of the identity?").</p>
+          <p>Or follow the long form below when you want a full multi-page migration with explicit direction.</p>
+        </div></div>
+
+        <div><div>
+          <h2><strong>Main flow</strong>Four sub-commands. One pipeline.</h2>
+          <p>Stardust is opinionated about <em>which</em> redesign to make and runs it as a chain of commands. Each command writes its own artifacts; the next reads them. Reading the artifacts back, you'll see the whole reasoning trace &mdash; palette picks, divergence inputs, the seed for today.</p>
+          <p>Math, not mysticism. Every choice has a provenance. The walkthrough below focuses on the home page; running each command without a slug fans out to the rest. You can stop after any step and pick up later &mdash; Stardust does not lock you into a pipeline.</p>
+          <pre># the four commands you'll meet today
+&#8250; /stardust:extract &mdash; capture the current site
+&#8250; /stardust:direct &mdash; resolve a redesign direction
+&#8250; /stardust:prototype &mdash; generate three variants per page
+&#8250; /stardust:migrate &mdash; ship deployable static HTML</pre>
+          <blockquote><p><strong>New site, not a redesign?</strong> Stardust also designs new sites from a brief. Redesigning an existing source is the main use case today; new-site design works but is less battle-tested.</p></blockquote>
+        </div></div>
+
+        <div><div>
+          <h2><strong>Step 1</strong>Capture the current state.</h2>
+          <p>Point Stardust at a URL:</p>
+          <pre>&#8250; /stardust:extract https://example.com</pre>
+          <p>If the project hasn't been set up yet, extract starts with a short interview that writes <code>PRODUCT.md</code> at the project root. You answer in your own words; the file captures what you're building and who it's for. Then the crawl begins.</p>
+          <p>It crawls five pages by default &mdash; the home plus four pillar pages &mdash; captures the brand surface (palette, typography, voice, motifs), and writes everything under <code>stardust/current/</code>. The crawl runs in a real browser, so JavaScript-rendered sites work the same as server-rendered ones.</p>
+          <p>When it finishes, open the eyeball-check artifact:</p>
+          <pre>&#8250; open stardust/current/brand-review.html</pre>
+          <p>You'll see a self-contained visual review of what was captured &mdash; colors, type, logo, motifs, voice samples, and any tensions the detector surfaced. Spend a minute here. If something looks wrong, re-run extract with <code>--refresh &lt;slug&gt;</code> on the misread page before moving on. Misreads are cheap to fix here and expensive later.</p>
+        </div></div>
+
+        <div><div>
+          <h2><strong>Step 2</strong>Direct the redesign.</h2>
+          <p>This is the only step where you say what you want. A short phrase is enough.</p>
+          <pre>&#8250; /stardust:direct "more editorial. lean into typography. keep the existing palette."</pre>
+          <p>Stardust restates your phrase in dimensional vocabulary, asks at most two clarifying questions if anything is underspecified, and resolves a target direction. It writes the target <code>PRODUCT.md</code>, <code>DESIGN.md</code>, and <code>DESIGN.json</code> at the project root, plus a full reasoning trace at <code>stardust/direction.md</code>.</p>
+          <p>The trace is worth reading. It tells you which axes the phrase moved, what the seed picked from <code>md5(brand &middot; date)</code>, which font deck and palette were chosen, and why. If you disagree, rerun with <code>--re-direct</code>.</p>
+          <blockquote><p><strong>Pin what matters to you.</strong> You can lock the type stack and palette by saying so in the phrase: <em>"keep typography and palette."</em> Stardust enters brand-faithful mode and only rolls the dimensions you didn't lock.</p></blockquote>
+        </div></div>
+
+        <div><div>
+          <h2><strong>Step 3</strong>Prototype the home page.</h2>
+          <pre>&#8250; /stardust:prototype home</pre>
+          <p>Two things happen. First, Stardust writes a per-page composition brief at <code>stardust/prototypes/home-shape.md</code> &mdash; the section list, layout strategy, content sources, anything the brief reviewer would want to challenge before the render. You'll be asked to confirm.</p>
+          <p>Once you confirm, the proposed redesign renders into <code>stardust/prototypes/home-proposed.html</code>, and a viewer opens automatically &mdash; your current home on the left, the proposed redesign on the right. Review it. If something needs adjusting, edit <code>home-shape.md</code> and re-run prototype to refresh.</p>
+          <blockquote><p><strong>For the rest of the site, drop the slug.</strong> Run <code>/stardust:prototype</code> without a slug and Stardust prototypes every <code>directed</code> page in turn &mdash; same direction, same brand surface, page-aware composition for each.</p></blockquote>
+        </div></div>
+
+        <div><div>
+          <h2><strong>Step 4</strong>Approve and migrate.</h2>
+          <p>When the home prototype reads the way you want, signal approval &mdash; click the Approve button in the viewer, or just say <em>"approve home"</em> in the chat.</p>
+          <p>Then ship the home page:</p>
+          <pre>&#8250; /stardust:migrate home</pre>
+          <p>The output is a deployable static HTML file. Drop it on GitHub Pages, your CDN, or any host that serves files. No build step. No framework lock-in.</p>
+          <p>For the whole site, drop the slug:</p>
+          <pre>&#8250; /stardust:migrate</pre>
+          <p>Migrate runs over every approved page in <code>stardust/state.json</code> and emits a complete static site, ready to publish.</p>
+        </div></div>
+      </div>
+    </div>
+  </main>
+  <footer></footer>
+</body>

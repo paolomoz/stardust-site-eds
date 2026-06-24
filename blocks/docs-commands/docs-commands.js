@@ -61,11 +61,29 @@ function splitFirst(html, delim) {
   return [html.slice(0, i).trim(), html.slice(i + delim.length).trim()];
 }
 
+// De-delimited term/description split (preferred): when a list item LEADS with a
+// preserved inline tag (<code> for paths/flags, <strong> for labels), that tag is
+// the term and the remaining markup is the description — no "::" delimiter needed.
+// DA preserves <code>/<strong> but strips <span>/classes, so the term rides a
+// semantic tag. Returns { el, rest } or null to fall back to the "::" form.
+function leadTerm(li) {
+  const first = li.firstElementChild;
+  if (first && (first.tagName === 'CODE' || first.tagName === 'STRONG')) {
+    const rest = li.cloneNode(true);
+    rest.removeChild(rest.firstElementChild);
+    return { el: first, rest: rest.innerHTML.replace(/^\s+/, '').trim() };
+  }
+  return null;
+}
+
 function buildSpec(ul) {
   const dl = document.createElement('dl');
   dl.className = 'spec';
   [...ul.children].forEach((li) => {
-    const [term, desc] = splitFirst(li.innerHTML, '::');
+    const lead = leadTerm(li);
+    // dt is styled mono-amber by CSS, so use the term's CONTENT (not its wrapper)
+    // to keep the rendered term identical to the old plain-text form.
+    const [term, desc] = lead ? [lead.el.innerHTML, lead.rest] : splitFirst(li.innerHTML, '::');
     const dt = document.createElement('dt');
     dt.innerHTML = term;
     const dd = document.createElement('dd');
@@ -79,7 +97,9 @@ function buildWrites(ul) {
   const list = document.createElement('ul');
   list.className = 'writes';
   [...ul.children].forEach((li) => {
-    const [code, desc] = splitFirst(li.innerHTML, '::');
+    const lead = leadTerm(li);
+    // writes keep the <code> wrapper (CSS styles `.writes li code`).
+    const [code, desc] = lead ? [lead.el.outerHTML, lead.rest] : splitFirst(li.innerHTML, '::');
     const out = document.createElement('li');
     out.innerHTML = code;
     if (desc) {
@@ -103,7 +123,16 @@ function buildToc(ol) {
   [...ol.children].forEach((li) => {
     const a = li.querySelector('a');
     if (!a) return;
-    const [name, step] = splitFirst(a.textContent, '|');
+    // De-delimited form (preferred): "<a>name</a> step" — the tag is trailing
+    // text after the link. Back-compat: "name|step" inside the link text.
+    const trailing = (() => {
+      const clone = li.cloneNode(true);
+      clone.querySelector('a')?.remove();
+      return clone.textContent.trim();
+    })();
+    const [name, step] = trailing
+      ? [a.textContent.trim(), trailing]
+      : splitFirst(a.textContent, '|');
     const out = document.createElement('li');
     const link = document.createElement('a');
     link.href = a.getAttribute('href');
