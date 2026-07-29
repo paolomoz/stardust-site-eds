@@ -1,0 +1,156 @@
+/* aem-notes — cadence notes closer, lifted from prototype ground-dust section */
+.aem-notes {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(56px, 6vw + 32px, 110px) 0;
+  background: var(--dust);
+  color: var(--deep-ink);
+}
+
+.aem-notes .wrap {
+  position: relative;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 4vw, 56px);
+}
+
+.aem-notes .codes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.18;
+  font: 500 10px/1 var(--mono);
+  letter-spacing: 0.18em;
+  color: var(--deep-ink);
+}
+
+.aem-notes .codes span { position: absolute; }
+
+.aem-notes .codes .tl {
+  top: -28px;
+  left: 0;
+}
+
+.aem-notes .codes .tr {
+  top: -28px;
+  right: 0;
+}
+
+.aem-notes .codes .bl {
+  bottom: -28px;
+  left: 0;
+}
+
+.aem-notes .codes .br {
+  bottom: -28px;
+  right: 0;
+}
+
+.aem-notes .head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 36px;
+}
+
+.aem-notes .eyebrow {
+  font: 500 11px/1 var(--mono);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--amber-deep);
+  display: inline-block;
+}
+
+.aem-notes .eyebrow .num {
+  color: rgb(26 31 56 / 60%);
+  margin-right: 8px;
+}
+
+.aem-notes .head .right {
+  font: 500 11px/1 var(--mono);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgb(26 31 56 / 45%);
+}
+
+.aem-notes .head .right .op {
+  color: var(--amber-deep);
+  padding: 0 6px;
+}
+
+.aem-notes h2 {
+  font-size: clamp(28px, 3vw + 14px, 56px);
+  line-height: 1.08;
+  letter-spacing: -0.022em;
+  margin-bottom: 18px;
+  color: var(--deep-ink);
+}
+
+.aem-notes h2 em {
+  font-style: italic;
+  color: var(--amber-deep);
+}
+
+.aem-notes .lede {
+  margin: 4px 0 0;
+  font-size: 15px;
+  line-height: 1.65;
+  max-width: 64ch;
+  color: rgb(26 31 56 / 72%);
+}
+
+.aem-notes .cadence {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-top: 32px;
+}
+
+.aem-notes .card {
+  padding: 26px 28px;
+  background: rgb(26 31 56 / 4%);
+  border: 1px solid rgb(26 31 56 / 10%);
+  border-radius: 18px;
+  transition: transform 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+}
+
+.aem-notes .card:hover {
+  transform: translateY(-3px);
+  background: rgb(232 185 94 / 10%);
+  border-color: rgb(201 130 45 / 40%);
+}
+
+.aem-notes .card .lbl {
+  font: 500 11px/1 var(--mono);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--amber-deep);
+  margin-bottom: 12px;
+}
+
+.aem-notes .card p {
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0;
+  color: rgb(26 31 56 / 78%);
+}
+
+.aem-notes .card code,
+.aem-notes .lede code {
+  font-family: var(--mono);
+  font-size: 0.9em;
+  background: rgb(232 185 94 / 20%);
+  color: var(--amber-deep);
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+
+@media (width <= 880px) {
+  .aem-notes .cadence { grid-template-columns: 1fr; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aem-notes .card { transition: none; }
+}

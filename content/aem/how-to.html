@@ -1,0 +1,171 @@
+<body>
+  <header></header>
+  <main>
+    <div>
+      <div class="metadata">
+        <div><div>Title</div><div>The Stardust migration playbook &mdash; from live site to AEM</div></div>
+        <div><div>Description</div><div>A start-to-finish prompt sequence for migrating an existing website to AEM Edge Delivery with the Stardust skills. Eleven phases, one prompt each.</div></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="aem-howto-hero">
+        <div><div>00 &middot; How-to &middot; Migration playbook</div></div>
+        <div><div><h1>Eleven phases.<br><em>One prompt each.</em></h1></div></div>
+        <div><div><p>A start-to-finish prompt sequence for migrating an existing website to AEM Edge Delivery with the Stardust skills &mdash; distilled from a real end-to-end migration. Replace <code>&lt;SITE_URL&gt;</code> throughout, run one phase per prompt, and start a fresh session at any phase boundary.</p></div></div>
+        <div><div>extract &rarr; direct &rarr; prototype &rarr; deploy &rarr; rollout</div><div>every artifact on disk &middot; resume anywhere</div></div>
+        <div><div><p>You provide up front</p><p><code>&lt;SITE_URL&gt;</code> &mdash; the live site to migrate. That's it. Phases 1&ndash;7 need nothing else.</p></div></div>
+        <div><div><p>You provide before Phase 8</p><p>The EDS project repo, the DA org/folder, a <code>DA_TOKEN</code> in the environment, and font-licensing confirmation for any private cuts the extraction captures.</p></div></div>
+      </div>
+    </div>
+
+    <div>
+      <div class="aem-phases soft">
+        <div><div>Act I &middot; Understand &amp; direct</div><div>Phases 1&ndash;3 &middot; live URL in hand</div></div>
+        <div><div><h2>Read the site. Score it. <em>Lock the direction.</em></h2></div></div>
+        <div>
+          <div><p>01</p><p>Extract &mdash; discovery snapshot</p></div>
+          <div>
+            <h3>Capture the brand surface.</h3>
+            <pre>/stardust:extract &lt;SITE_URL&gt;</pre>
+            <p>A default five-page, template-diverse crawl &mdash; home, program, listing, article, form &mdash; with brand-surface extraction, descriptive PRODUCT and DESIGN docs, and a <code>brand-review.html</code>.</p>
+            <blockquote><p><strong>Check before continuing:</strong> open <code>stardust/current/brand-review.html</code>; the per-page evidence table should show <code>live: yes</code> on every row, and the Tensions section is your decision agenda. Widen with <code>--cap 25</code> / <code>--pages a,b,c</code> only if the five pages missed a template.</p></blockquote>
+          </div>
+        </div>
+        <div>
+          <div><p>02</p><p>Audit &mdash; scored baseline</p></div>
+          <div>
+            <h3>Establish the baseline you'll beat.</h3>
+            <pre>/stardust:audit &lt;SITE_URL&gt;</pre>
+            <p>Reuses the fresh extraction and produces a seven-dimension scorecard with P1&ndash;P3 findings, benchmarks, and uplift directions. The findings ledger becomes the fix list for Phase 3, and the closing audit in Phase 11 is measured against this baseline.</p>
+          </div>
+        </div>
+        <div>
+          <div><p>03</p><p>Direct &mdash; lock the direction</p></div>
+          <div>
+            <h3>The one prompt to get right.</h3>
+            <p>For a brand-faithful migration &mdash; the common case, and this playbook's path:</p>
+            <pre>/stardust:direct keep the brand, consider the brand style unique choices and do not average them into standard design. keep all the videos, images and animations. look at audit and fix identified issues while maintaining the brand. Brand faithful, IA verbatim!!</pre>
+            <p>The phrase pins brand-faithful Mode A with verbatim information architecture and media preservation, and scopes the work to the audit findings. Expect exactly one question back &mdash; the density tier; answer <strong>balanced</strong> unless the site is editorial. Outputs: target <code>PRODUCT.md</code> / <code>DESIGN.md</code> / <code>DESIGN.json</code>, <code>stardust/direction.md</code>, and the improvements list.</p>
+            <p><em>Variants:</em> replace the phrase with <code>--rebrand ...</code> for a new identity, or append "3 variants" for an A/B/C fork. Everything downstream reads the direction file.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="aem-phases">
+        <div><div>Act II &middot; Prototype &amp; plan</div><div>Phases 4&ndash;7 &middot; no EDS project needed yet</div></div>
+        <div><div><h2>Approve the home, plan the site, <em>migrate every page.</em></h2></div></div>
+        <div>
+          <div><p>04</p><p>Prototype &mdash; home + approve</p></div>
+          <div>
+            <h3>Home becomes the canon-author.</h3>
+            <pre>/stardust:prototype</pre>
+            <p>The agent shows the home <strong>shape brief</strong> &rarr; reply <code>Render it</code> (or edit the brief) &rarr; render plus quality gates (critique / audit / adapt / vision) &rarr; open in browser. Iterate with plain phrases &mdash; "tighten the hero", "make the cards quieter" &mdash; then:</p>
+            <pre>approve index</pre>
+            <p>The approved home authors the canon every later archetype inherits.</p>
+          </div>
+        </div>
+        <div>
+          <div><p>05</p><p>Analysis + implementation plan</p></div>
+          <div>
+            <h3>Map the whole site before building it.</h3>
+            <pre>Run a full analysis of the website: identify and document the full list of URLs that are part of the website, then analyse which page types should be prototyped. Then identify all the dynamic capabilities of the site that we will have to reimplement in our EDS implementation (item lists, indexes, search, API integrations, martech, etc.). Then write an implementation plan we will follow, all based on stardust skills: stardust:prototype all the page types identified, stardust:migrate the prototypes, stardust:deploy them, then build all the dynamic capabilities and migrate all the pages (use stardust:rollout if better). I will provide the EDS project and DA folder later.</pre>
+            <p>Outputs under <code>stardust/analysis/</code>: <code>site-inventory.md</code> (plus a URL inventory typed into archetypes), <code>dynamic-capabilities.md</code> (each capability mapped to an EDS approach), and <code>implementation-plan.md</code> &mdash; the phase list the rest of this playbook follows.</p>
+          </div>
+        </div>
+        <div>
+          <div><p>06</p><p>Prep cascade &mdash; fresh session</p></div>
+          <div>
+            <h3>The handoff prompt &mdash; resume in a fresh session.</h3>
+            <pre>/stardust:prepare-migration &lt;SITE_URL&gt;
+
+Context: this project is mid-pipeline &mdash; read stardust/journal.md (last 3 entries), stardust/state.json, and stardust/analysis/implementation-plan.md before doing anything.
+
+Where we are:
+- Extract, audit, and direct are done. Direction is LOCKED (stardust/direction.md): brand-faithful Mode A, ia-fidelity VERBATIM, density balanced, all media/animations preserved, audit findings are the fix list. Do not re-run direct's questions.
+- The home prototype (stardust/prototypes/index-proposed.html) is APPROVED and is the canon-author.
+- Full analysis is on disk: stardust/analysis/site-inventory.md, dynamic-capabilities.md, implementation-plan.md.
+
+Do next, per that plan:
+1. extract --prep: full junk-filtered live crawl, types stamped into state.json, module candidates, typed slots. Synthesis is forbidden; the prep summary must show live provenance &lt;total&gt;/&lt;total&gt;. Use the project copy of the crawler (stardust/scripts/crawl.mjs &mdash; it carries site-specific consent fixes) and re-probe playwright importability first (npm i -D playwright --no-save --legacy-peer-deps).
+2. direct --prep: confirm the type/module catalogs against site-inventory.md. Put the open decisions from the plan to me (e.g. search depth, analytics attribution).
+3. prototype --prep: one archetype per type, in the plan's order. Verbatim IA, all gates, my approval per archetype. Canon extracts from the approved home.
+
+Not yet: migrate/deploy/rollout &mdash; EDS repo, DA folder, DA_TOKEN, and font licensing come later.</pre>
+            <p>The context block at the top &mdash; read the journal, the state file, and the plan; the direction is locked; don't re-ask &mdash; is the template for resuming <em>any</em> phase in a fresh session. During this phase you'll be prompted once per archetype:</p>
+            <pre>approve &lt;slug&gt;</pre>
+          </div>
+        </div>
+        <div>
+          <div><p>07</p><p>Migrate &mdash; all pages</p></div>
+          <div>
+            <h3>Every page, as platform-agnostic HTML.</h3>
+            <pre>/stardust:migrate
+
+Context: read stardust/journal.md and stardust/state.json first. All archetypes are approved and canon is written. Fork approved templates across sibling pages per type; render unique-typed pages as one-offs. Refuse to ship any [data-placeholder] &mdash; legal pages must be verbatim. Preserve the 1:1 URL map.</pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="aem-phases soft">
+        <div><div>Act III &middot; Ship &amp; verify</div><div>Phases 8&ndash;11 &middot; EDS repo + DA in hand</div></div>
+        <div><div><h2>Prove the pipeline, build the dynamics, <em>roll out the site.</em></h2></div></div>
+        <div>
+          <div><p>08</p><p>Deploy one page &mdash; pipeline proof</p></div>
+          <div>
+            <h3>One page through the whole pipe.</h3>
+            <pre>/stardust:deploy index
+
+The EDS project repo is &lt;GITHUB_ORG/REPO&gt;, the DA org/folder is &lt;DA_ORG&gt;/&lt;DA_FOLDER&gt;, DA_TOKEN is set in the environment. Deploy the approved home: section&rarr;block conversion, DA source PUT &rarr; preview &rarr; live. Then run stardust:diff index against the approved prototype and show me the fidelity report before we go further.</pre>
+            <p><em>Also in this phase</em> &mdash; same prompt or a follow-up: self-host fonts (licensing confirmed), favicon, the metadata sheet skeleton, the consent bar, and the <code>delayed.js</code> martech scaffold.</p>
+          </div>
+        </div>
+        <div>
+          <div><p>09</p><p>Dynamic capabilities</p></div>
+          <div>
+            <h3>Rebuild what the CMS used to do.</h3>
+            <pre>Build the dynamic capabilities from stardust/analysis/dynamic-capabilities.md in the EDS project, in this order: (1) helix-query.yaml + query index with the metadata columns; (2) the listing/grid block with facets + batched reveal; (3) related-content; (4) search block over the index; (5) form blocks posting to the incumbent forms API with lazy captcha; (6) media blocks (video hero + player facade) per the approved prototype; (7) martech in delayed.js gated by the consent bar; (8) metadata sheet, JSON-LD per template, llms.txt, redirects sheet, sitemap. Validate each block page with stardust:diff, and re-run the CWV check &mdash; mobile TBT must land &le;200ms.</pre>
+          </div>
+        </div>
+        <div>
+          <div><p>10</p><p>Rollout &mdash; whole site</p></div>
+          <div>
+            <h3>The full inventory, gated and batched.</h3>
+            <pre>/stardust:rollout
+
+Context: read stardust/journal.md, stardust/state.json, and the implementation plan. Roll out the full migrated inventory to EDS with coverage + delivery gates. Batch by type: static-legal first, then articles, programs, then listings last (behind their blocks). The audit findings with known check ids (canonical, jsonld, single-h1, duplicate-title) should flow into the ledger for autofix. Stop before the DNS/go-live step and give me the go-live checklist.</pre>
+          </div>
+        </div>
+        <div>
+          <div><p>11</p><p>QA + closing audit</p></div>
+          <div>
+            <h3>Close the loop against the Phase 2 baseline.</h3>
+            <pre>/stardust:qa &lt;LIVE_EDS_URL&gt;</pre>
+            <p>then</p>
+            <pre>/stardust:audit &lt;LIVE_EDS_URL&gt;</pre>
+            <p>Compare against the Phase 2 baseline: the P1 findings should be resolved and the overall score materially up. Anything left feeds a fix loop &mdash; Phase 9 blocks or rollout's optimize pass &mdash; until clean.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div class="aem-notes">
+        <div><div>++ &middot; Cadence notes</div><div>How to run it &middot; and two shortcuts</div></div>
+        <div><div><h2>One phase per session <em>is fine.</em></h2></div></div>
+        <div><div><p>Every artifact lives on disk &mdash; the journal, the state file, the plan. The Phase 6 context block ("read journal.md, state.json, the plan; direction is locked; don't re-ask") is the template for resuming any phase in a fresh session.</p></div></div>
+        <div><div><p>Approvals are explicit</p><p>Nothing auto-approves. You gate each artifact with <code>approve &lt;slug&gt;</code> &mdash; the home first, then one approval per archetype.</p></div></div>
+        <div><div><p>Iteration is plain language</p><p>"Make the hero bolder", "tighten the grid" &mdash; against any prototype. The agent maps the phrase to design commands and re-runs the quality gates.</p></div></div>
+        <div><div><p>The two prompts that shape everything</p><p>The Phase 3 direction phrase (fidelity vs rebrand, verbatim vs reimagined) and the Phase 5 analysis ask (produces the plan every later prompt points back to). Spend your words there.</p></div></div>
+        <div><div><p>Hands-off alternative</p><p>Append <code>--hands-off</code> to the Phase 1 or Phase 6 prompt and the interactive gates auto-resolve with named assumptions &mdash; quality gates still run at full strength. Approvals record as <code>approvedBy: hands-off</code>.</p></div></div>
+        <div><div><p>One-shot presales alternative</p><p><code>/stardust:uplift &lt;SITE_URL&gt;</code> replaces Phases 1&ndash;4 with three differentiated variants in one run &mdash; when the goal is a pitch, not a migration.</p></div></div>
+        <div><div><p>Session-break contract</p><p>Every prompt from Phase 3 onward begins by pointing the agent at the on-disk state &mdash; <code>stardust/journal.md</code> and <code>stardust/state.json</code>. That's what makes phase boundaries safe places to stop.</p></div></div>
+      </div>
+    </div>
+  </main>
+  <footer></footer>
+</body>
