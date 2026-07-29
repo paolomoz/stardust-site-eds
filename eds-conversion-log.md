@@ -181,3 +181,43 @@ tags + delimiters (DA strips `<span>`/classes):
 QA (live `/docs/commands/`): decorated; 1 h1; 7 command sections; 8 spec lists +
 8 writes lists; 1 addendum; 25 code prompts + 20 args (clean); TOC (7); "Commands"
 active in the sidebar; no h-scroll; no console errors. Lint clean.
+
+---
+
+# EDS conversion log — How-to / migration playbook page (`/aem/how-to`)
+
+Source prototype: `stardust-site/aem/how-to/index.html` (the migration prompt
+playbook, generalized from the omada-health session runbook). Deployed to
+`content/aem/how-to.html` → `/aem/how-to`.
+
+Same design system as the `/aem` page (1180 max-width, ink/amber/mono grounds),
+but three genuinely new patterns → three new blocks (strict reuse rule: the /aem
+blocks' compositions don't match — aem-hero carries a before/after pair, this
+hero carries "provide" cards; aem-cards cards are lbl+h3+p 3-up, cadence cards
+are lbl+p 2-up cream).
+
+| Block | Section | Ground | Notes |
+|---|---|---|---|
+| `aem-howto-hero` | hero | ink (radial) | eyebrow, 2-line h1, highlighted lede, chips, 2 "provide" cards; dust speckle + hex codes + cursor star in JS (shared design with aem-hero, duplicated per one-block-per-pattern) |
+| `aem-phases` | Act I / Act III | `soft` (ink-soft) | head (Act eyebrow + right meta) + h2 + phase rows |
+| `aem-phases` | Act II | default (body ink-deep) | **reused** — same block, no variant |
+| `aem-notes` | cadence notes | cream | head + h2 + lede + 2-col lbl+p cards |
+
+Decisions / notes:
+- **Phase row = 2 cells: marker | body.** Marker cell is `<p>NN</p><p>tag</p>`;
+  body cell starts with `<h3>` (wrapTextNodes-safe) then flows `<p>` prose,
+  `<pre>` prompts, `<blockquote>` check callouts in authored order.
+- **Prompts are authored `<pre>`** (docs-page precedent). `decorate()` wraps each
+  in a `.prompt` chrome (bar + Copy button, clipboard API) and re-highlights the
+  leading command token (`/stardust:*`, `approve`, `Render it`) and
+  `&lt;PLACEHOLDER&gt;` args from escaped textContent — DA strips spans, so the
+  accents are reconstructed, never authored.
+- **Notes** — a body `<p>` whose first node is `<em>` renders as `.note`
+  (smaller/faded), matching the prototype's `p.note`.
+- Eyebrow num regex extended for this page's `Act I ·` / `++ ·` prefixes.
+- `/aem` page lede (aem-steps) now links `/aem/how-to`.
+- Lint: `npm run lint` clean. davids-model-lint: D15 🔴 on `&lt;SITE_URL&gt;`-class
+  placeholders — accepted false-positive for command-reference pages (identical
+  verdict on the shipped /docs and /docs/commands content); D3 🟡 cell-count mix
+  (2-cell head/marker rows + 1-cell body rows) is the same shape the shipped
+  pages use — justified, not a span.

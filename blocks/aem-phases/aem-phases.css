@@ -1,0 +1,293 @@
+/* aem-phases — playbook act sections, lifted from prototype section.b + .phase */
+.aem-phases {
+  position: relative;
+  overflow: hidden;
+  padding: clamp(56px, 6vw + 32px, 110px) 0;
+  color: var(--dust);
+}
+
+.aem-phases.soft {
+  background: var(--ink-soft);
+}
+
+.aem-phases .wrap {
+  position: relative;
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 clamp(20px, 4vw, 56px);
+}
+
+.aem-phases .codes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.32;
+  font: 500 10px/1 var(--mono);
+  letter-spacing: 0.18em;
+  color: currentcolor;
+}
+
+.aem-phases .codes span { position: absolute; }
+
+.aem-phases .codes .tl {
+  top: -28px;
+  left: 0;
+}
+
+.aem-phases .codes .tr {
+  top: -28px;
+  right: 0;
+}
+
+.aem-phases .codes .bl {
+  bottom: -28px;
+  left: 0;
+}
+
+.aem-phases .codes .br {
+  bottom: -28px;
+  right: 0;
+}
+
+.aem-phases .head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 36px;
+}
+
+.aem-phases .eyebrow {
+  font: 500 11px/1 var(--mono);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--amber);
+  display: inline-block;
+}
+
+.aem-phases .eyebrow .num {
+  color: rgb(245 240 230 / 78%);
+  margin-right: 8px;
+}
+
+.aem-phases .head .right {
+  font: 500 11px/1 var(--mono);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgb(245 240 230 / 55%);
+}
+
+.aem-phases .head .right .op {
+  color: var(--amber);
+  padding: 0 6px;
+}
+
+.aem-phases h2 {
+  font-size: clamp(28px, 3vw + 14px, 56px);
+  line-height: 1.08;
+  letter-spacing: -0.022em;
+  margin-bottom: 18px;
+  color: var(--dust);
+}
+
+.aem-phases h2 em {
+  font-style: italic;
+  color: var(--amber-light);
+}
+
+/* PHASES */
+.aem-phases .phase {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 32px;
+  padding: 40px 0;
+  border-top: 1px solid var(--dust-08);
+}
+
+.aem-phases .phase:first-of-type {
+  border-top: none;
+  padding-top: 8px;
+  margin-top: 24px;
+}
+
+.aem-phases .marker {
+  position: sticky;
+  top: 76px;
+  align-self: start;
+}
+
+.aem-phases .marker .num {
+  font: 600 13px/1 var(--mono);
+  letter-spacing: 0.12em;
+  color: var(--amber);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1.5px solid var(--amber);
+  margin-bottom: 14px;
+  transition: transform 0.3s, background 0.3s, color 0.3s;
+}
+
+.aem-phases .phase:hover .marker .num {
+  transform: rotate(180deg);
+  background: var(--amber);
+  color: var(--ink);
+}
+
+.aem-phases .marker .tag {
+  font: 500 11px/1.6 var(--mono);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgb(245 240 230 / 55%);
+  max-width: 200px;
+}
+
+.aem-phases .body h3 {
+  font-size: clamp(20px, 1vw + 15px, 26px);
+  line-height: 1.25;
+  margin-bottom: 10px;
+  color: var(--dust);
+}
+
+.aem-phases .body p {
+  font-size: 15px;
+  line-height: 1.65;
+  max-width: 64ch;
+  margin: 0 0 18px;
+  color: var(--dust-72);
+}
+
+.aem-phases .body p:last-child { margin-bottom: 0; }
+
+.aem-phases .body p strong {
+  color: var(--dust);
+  font-weight: 600;
+}
+
+.aem-phases .body p.note {
+  font-size: 13.5px;
+  color: rgb(245 240 230 / 62%);
+}
+
+.aem-phases .body code {
+  font-family: var(--mono);
+  font-size: 0.9em;
+  background: rgb(232 185 94 / 14%);
+  color: var(--amber-light);
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+
+/* PROMPT BLOCKS */
+.aem-phases .prompt {
+  margin: 20px 0;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--dust-15);
+  background: var(--ink);
+}
+
+.aem-phases .prompt .bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 16px;
+  background: rgb(245 240 230 / 5%);
+  border-bottom: 1px solid var(--dust-08);
+  font: 500 10px/1 var(--mono);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgb(245 240 230 / 55%);
+}
+
+.aem-phases .prompt .bar .dot {
+  color: var(--amber);
+  margin-right: 8px;
+}
+
+.aem-phases .prompt .copy {
+  font: 600 10px/1 var(--mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--amber);
+  background: transparent;
+  border: 1px solid rgb(232 185 94 / 35%);
+  border-radius: 999px;
+  padding: 6px 12px;
+  margin: 0;
+  width: auto;
+  cursor: pointer;
+  transition: background 120ms ease, color 120ms ease;
+}
+
+.aem-phases .prompt .copy:hover {
+  background: var(--amber);
+  color: var(--ink);
+}
+
+.aem-phases .prompt .copy:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
+}
+
+.aem-phases .prompt pre {
+  margin: 0;
+  padding: 18px 20px;
+  font: 13px/1.65 var(--mono);
+  color: var(--dust);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.aem-phases .prompt pre .kw { color: var(--amber); }
+
+.aem-phases .prompt pre .arg {
+  color: var(--amber-light);
+  font-style: italic;
+}
+
+/* CHECK CALLOUTS */
+.aem-phases .check {
+  margin: 16px 0 0;
+  padding: 14px 18px;
+  border-left: 2px solid var(--amber);
+  background: linear-gradient(90deg, rgb(232 185 94 / 8%), transparent 75%);
+  font-size: 13.5px;
+  line-height: 1.6;
+  max-width: 70ch;
+  color: var(--dust-72);
+}
+
+.aem-phases .check strong {
+  color: var(--amber-light);
+  font-weight: 600;
+}
+
+.aem-phases .check code {
+  font-family: var(--mono);
+  font-size: 0.9em;
+  background: rgb(232 185 94 / 14%);
+  color: var(--amber-light);
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+
+@media (width <= 880px) {
+  .aem-phases .phase {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .aem-phases .marker {
+    position: static;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .aem-phases .marker .num { margin-bottom: 0; }
+}
